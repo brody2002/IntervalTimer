@@ -11,7 +11,8 @@ import SwiftUI
 struct IntervalClockApp: App {
     var body: some Scene {
         WindowGroup {
-            PresetView()
+            @ObservedObject var preset: PresetListClass = PresetListClass()
+            PresetView(PresetList: preset)
         }
     }
 }

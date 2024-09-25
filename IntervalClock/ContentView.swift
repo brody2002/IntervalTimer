@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @State var Clock = ClockClass()
     @State var preset1: Preset?  = nil
-    @State var timeRemaining: String = "00:10"
+    @State var timeRemaining: String = "00:00:10"
     @State var mainLabel: String = "Run Timer"
     @State var placeholder: Int = 3
     @State var restMode: Bool = true
@@ -47,7 +47,8 @@ struct ContentView: View {
                 
                 
                 Text(timeRemaining)
-                    .font(.custom(AppFonts.ValeraRound, size: 130))
+                    .font(.custom(AppFonts.ValeraRound, size: 80))
+                    .padding(.top,40)
                     
                 
                 
@@ -72,7 +73,7 @@ struct ContentView: View {
                     }, onFinish: {
                         // Handle what happens when the timer finishes
                         print("Reps complete!")
-                        timeRemaining = "00:00"  // Reset the display when finished
+                        timeRemaining = "00:00:00"  // Reset the display when finished
                     })}
                     
             }

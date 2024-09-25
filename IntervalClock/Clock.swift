@@ -20,16 +20,20 @@ class ClockClass {
         let seconds = Int(timeInterval) % 60
         return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
     }
-    
+
     func timeStringToInterval(_ timeString: String) -> TimeInterval? {
-        let components = timeString.split(separator: ":").map { String($0) }
+        // Remove non-numeric characters for clean input processing
+        let cleanedString = timeString.filter { "0123456789".contains($0) }
         
-        guard components.count == 3,
-              let hours = Double(components[0]),
-              let minutes = Double(components[1]),
-              let seconds = Double(components[2]) else {
-            return nil
-        }
+        guard cleanedString.count <= 6 else { return nil }
+        
+        // Pad the string with zeros to ensure it's 6 digits (hhmmss)
+        let paddedString = String(repeating: "0", count: 6 - cleanedString.count) + cleanedString
+        
+        // Extract hours, minutes, and seconds
+        let hours = Double(String(paddedString.prefix(2))) ?? 0
+        let minutes = Double(String(paddedString.dropFirst(2).prefix(2))) ?? 0
+        let seconds = Double(String(paddedString.dropFirst(4))) ?? 0
         
         return (hours * 3600) + (minutes * 60) + seconds
     }

@@ -11,7 +11,7 @@ struct PresetView: View {
     @State var repsNum: TimeInterval = 0.00
     @State var restNum: TimeInterval = 0.00
     @State var Clock = ClockClass()
-    @State var PresetList = PresetListClass()
+    @ObservedObject var PresetList: PresetListClass
     
     @State private var isIncrementing = false
     @State private var timer: Timer? = nil
@@ -77,7 +77,6 @@ struct PresetView: View {
                         .onLongPressGesture(minimumDuration: 0.5, pressing: { pressing in
                             self.hasPressed = pressing
                             if pressing {
-                                print("pressing")
                                 startIncrementing("-", for: "repsNum") }
                             if !pressing { stopIncrementing() }
                         }, perform: {})
@@ -95,7 +94,7 @@ struct PresetView: View {
                         },
                         set: { newValue in
                             if let interval = Clock.timeStringToInterval(newValue) {
-                                repsNum = min(interval, 10800) // Restrict to 3 hours max
+                                repsNum = min(interval, 86399) // Restrict to 3 hours max
                             }
                         }
                     ))
@@ -112,12 +111,11 @@ struct PresetView: View {
                         .onLongPressGesture(minimumDuration: 0.5, pressing: { pressing in
                             self.hasPressed = pressing
                             if pressing {
-                                print("pressing")
                                 startIncrementing("+", for: "repsNum") }
                             if !pressing { stopIncrementing() }
                         }, perform: {})
                         .onTapGesture {
-                            repsNum = min(repsNum + 1, 10800)
+                            repsNum = min(repsNum + 1, 86399)
                         }
                 }
                 
@@ -129,7 +127,6 @@ struct PresetView: View {
                         .onLongPressGesture(minimumDuration: 0.5, pressing: { pressing in
                             self.hasPressed = pressing
                             if pressing {
-                                print("pressing")
                                 startIncrementing("-", for: "restNum") }
                             if !pressing { stopIncrementing() }
                         }, perform: {})
@@ -147,7 +144,7 @@ struct PresetView: View {
                         },
                         set: { newValue in
                             if let interval = Clock.timeStringToInterval(newValue) {
-                                restNum = min(interval, 10800) // Restrict to 3 hours max
+                                restNum = min(interval, 86399) // Restrict to 3 hours max
                             }
                         }
                     ))
@@ -164,22 +161,27 @@ struct PresetView: View {
                         .onLongPressGesture(minimumDuration: 0.5, pressing: { pressing in
                             self.hasPressed = pressing
                             if pressing {
-                                print("pressing")
                                 startIncrementing("+", for: "restNum") }
                             if !pressing { stopIncrementing() }
                         }, perform: {})
                         .onTapGesture {
-                            restNum = min(restNum + 1, 10800)
+                            restNum = min(restNum + 1, 86399)
                         }
                 }
             }
             .padding(.trailing, -10)
             .padding(.top, 100)
             
+            
+            
             RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
                 .stroke(Color.black, lineWidth: 3)
                 .frame(width: 350, height: 400)
                 .padding(.top, 200)
+            
+            
+            
+            
             
             // Add Preset Button:
             ZStack {
@@ -197,6 +199,11 @@ struct PresetView: View {
             }
         }
     }
+    
+    
+    
+    
+    
     
     // Function to start incrementing based on input
     private func startIncrementing(_ input: String, for field: String) {
@@ -236,7 +243,8 @@ struct PresetView: View {
 }
 
 #Preview {
-    PresetView()
+    @ObservedObject var preset = PresetListClass()
+    PresetView(PresetList: preset)
 }
 
 

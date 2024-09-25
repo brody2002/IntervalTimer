@@ -16,10 +16,3 @@ struct AppColors{
 }
 
 
-/*
- .onLongPressGesture(minimumDuration: 0.5, pressing: { pressing in
-     self.hasPressed = pressing
-     if pressing { startIncrementing("+", for: "restNum") }
-     if !pressing { stopIncrementing() }
- }, perform: {})
- */
