@@ -8,5 +8,5 @@
 import Foundation
 
 struct AppFonts{
-    static var AntipastoMed: String = "ValeraRound-Regular"
+    static var ValeraRound: String = "VarelaRound-Regular"
 }

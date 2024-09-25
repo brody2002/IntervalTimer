@@ -28,12 +28,21 @@
 		9677AFE62CA3436C00CABC67 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677AFE52CA3436C00CABC67 /* Fonts.swift */; };
 		9677AFE72CA3436C00CABC67 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677AFE52CA3436C00CABC67 /* Fonts.swift */; };
 		9677AFE82CA3436C00CABC67 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677AFE52CA3436C00CABC67 /* Fonts.swift */; };
-		9677AFEC2CA348C800CABC67 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9677AFE92CA348C800CABC67 /* OFL.txt */; };
-		9677AFED2CA348C800CABC67 /* VarelaRound-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9677AFEA2CA348C800CABC67 /* VarelaRound-Regular.ttf */; };
-		9677AFEE2CA348C800CABC67 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9677AFE92CA348C800CABC67 /* OFL.txt */; };
-		9677AFEF2CA348C800CABC67 /* VarelaRound-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9677AFEA2CA348C800CABC67 /* VarelaRound-Regular.ttf */; };
-		9677AFF02CA348C800CABC67 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9677AFE92CA348C800CABC67 /* OFL.txt */; };
-		9677AFF12CA348C800CABC67 /* VarelaRound-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9677AFEA2CA348C800CABC67 /* VarelaRound-Regular.ttf */; };
+		9677AFFC2CA4645E00CABC67 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9677AFF92CA4645E00CABC67 /* OFL.txt */; };
+		9677AFFD2CA4645E00CABC67 /* VarelaRound-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9677AFFA2CA4645E00CABC67 /* VarelaRound-Regular.ttf */; };
+		9677AFFE2CA4645E00CABC67 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9677AFF92CA4645E00CABC67 /* OFL.txt */; };
+		9677AFFF2CA4645E00CABC67 /* VarelaRound-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9677AFFA2CA4645E00CABC67 /* VarelaRound-Regular.ttf */; };
+		9677B0002CA4645E00CABC67 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9677AFF92CA4645E00CABC67 /* OFL.txt */; };
+		9677B0012CA4645E00CABC67 /* VarelaRound-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9677AFFA2CA4645E00CABC67 /* VarelaRound-Regular.ttf */; };
+		9677B0032CA46FA300CABC67 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0022CA46FA300CABC67 /* Colors.swift */; };
+		9677B0042CA46FA300CABC67 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0022CA46FA300CABC67 /* Colors.swift */; };
+		9677B0052CA46FA300CABC67 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0022CA46FA300CABC67 /* Colors.swift */; };
+		9677B0072CA4717700CABC67 /* SleepZs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0062CA4717700CABC67 /* SleepZs.swift */; };
+		9677B0082CA4717700CABC67 /* SleepZs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0062CA4717700CABC67 /* SleepZs.swift */; };
+		9677B0092CA4717700CABC67 /* SleepZs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0062CA4717700CABC67 /* SleepZs.swift */; };
+		9677B00B2CA4758A00CABC67 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B00A2CA4758A00CABC67 /* HomeView.swift */; };
+		9677B00C2CA4758A00CABC67 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B00A2CA4758A00CABC67 /* HomeView.swift */; };
+		9677B00D2CA4758A00CABC67 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B00A2CA4758A00CABC67 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,8 +74,11 @@
 		9677AFE02CA33A7000CABC67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		9677AFE12CA342B300CABC67 /* PresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetView.swift; sourceTree = "<group>"; };
 		9677AFE52CA3436C00CABC67 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
-		9677AFE92CA348C800CABC67 /* OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
-		9677AFEA2CA348C800CABC67 /* VarelaRound-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VarelaRound-Regular.ttf"; sourceTree = "<group>"; };
+		9677AFF92CA4645E00CABC67 /* OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
+		9677AFFA2CA4645E00CABC67 /* VarelaRound-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "VarelaRound-Regular.ttf"; path = "/Users/BroBro/Desktop/BrodyCode/IosApp/IntervalClock/IntervalClock/Varela_Round/VarelaRound-Regular.ttf"; sourceTree = "<absolute>"; };
+		9677B0022CA46FA300CABC67 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		9677B0062CA4717700CABC67 /* SleepZs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepZs.swift; sourceTree = "<group>"; };
+		9677B00A2CA4758A00CABC67 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -130,7 +142,6 @@
 		9677AFC12CA3389700CABC67 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				9677AFEB2CA348C800CABC67 /* Varela_Round */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -138,6 +149,7 @@
 		9677AFC72CA3389700CABC67 /* IntervalClock */ = {
 			isa = PBXGroup;
 			children = (
+				9677AFFB2CA4645E00CABC67 /* Varela_Round */,
 				9677AFF22CA3A8F600CABC67 /* UI */,
 				9677AFE02CA33A7000CABC67 /* Info.plist */,
 				9677AFC12CA3389700CABC67 /* Preview Content */,
@@ -145,6 +157,8 @@
 				9677AFC32CA3389700CABC67 /* Clock.swift */,
 				9677AFE52CA3436C00CABC67 /* Fonts.swift */,
 				9677AFC42CA3389700CABC67 /* ContentView.swift */,
+				9677B00A2CA4758A00CABC67 /* HomeView.swift */,
+				9677B0022CA46FA300CABC67 /* Colors.swift */,
 				9677AFE12CA342B300CABC67 /* PresetView.swift */,
 				9677AFC52CA3389700CABC67 /* IntervalClockApp.swift */,
 				9677AFC62CA3389700CABC67 /* Preview Assets.xcassets */,
@@ -152,21 +166,23 @@
 			path = IntervalClock;
 			sourceTree = "<group>";
 		};
-		9677AFEB2CA348C800CABC67 /* Varela_Round */ = {
-			isa = PBXGroup;
-			children = (
-				9677AFE92CA348C800CABC67 /* OFL.txt */,
-				9677AFEA2CA348C800CABC67 /* VarelaRound-Regular.ttf */,
-			);
-			path = Varela_Round;
-			sourceTree = "<group>";
-		};
 		9677AFF22CA3A8F600CABC67 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9677B0062CA4717700CABC67 /* SleepZs.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
+		};
+		9677AFFB2CA4645E00CABC67 /* Varela_Round */ = {
+			isa = PBXGroup;
+			children = (
+				9677AFF92CA4645E00CABC67 /* OFL.txt */,
+				9677AFFA2CA4645E00CABC67 /* VarelaRound-Regular.ttf */,
+			);
+			name = Varela_Round;
+			path = IntervalClock/Varela_Round;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -286,9 +302,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9677AFC82CA3389700CABC67 /* Assets.xcassets in Resources */,
-				9677AFEC2CA348C800CABC67 /* OFL.txt in Resources */,
-				9677AFED2CA348C800CABC67 /* VarelaRound-Regular.ttf in Resources */,
 				9677AFC92CA3389700CABC67 /* Preview Assets.xcassets in Resources */,
+				9677B0002CA4645E00CABC67 /* OFL.txt in Resources */,
+				9677B0012CA4645E00CABC67 /* VarelaRound-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,9 +313,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9677AFCD2CA3389700CABC67 /* Assets.xcassets in Resources */,
-				9677AFEE2CA348C800CABC67 /* OFL.txt in Resources */,
-				9677AFEF2CA348C800CABC67 /* VarelaRound-Regular.ttf in Resources */,
 				9677AFCE2CA3389700CABC67 /* Preview Assets.xcassets in Resources */,
+				9677AFFC2CA4645E00CABC67 /* OFL.txt in Resources */,
+				9677AFFD2CA4645E00CABC67 /* VarelaRound-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,9 +324,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9677AFD22CA3389700CABC67 /* Assets.xcassets in Resources */,
-				9677AFF02CA348C800CABC67 /* OFL.txt in Resources */,
-				9677AFF12CA348C800CABC67 /* VarelaRound-Regular.ttf in Resources */,
 				9677AFD32CA3389700CABC67 /* Preview Assets.xcassets in Resources */,
+				9677AFFE2CA4645E00CABC67 /* OFL.txt in Resources */,
+				9677AFFF2CA4645E00CABC67 /* VarelaRound-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,8 +338,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9677AFCA2CA3389700CABC67 /* Clock.swift in Sources */,
+				9677B0072CA4717700CABC67 /* SleepZs.swift in Sources */,
+				9677B0052CA46FA300CABC67 /* Colors.swift in Sources */,
 				9677AFE82CA3436C00CABC67 /* Fonts.swift in Sources */,
 				9677AFE22CA342B300CABC67 /* PresetView.swift in Sources */,
+				9677B00D2CA4758A00CABC67 /* HomeView.swift in Sources */,
 				9677AFCB2CA3389700CABC67 /* ContentView.swift in Sources */,
 				9677AFCC2CA3389700CABC67 /* IntervalClockApp.swift in Sources */,
 			);
@@ -333,10 +352,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9677B00B2CA4758A00CABC67 /* HomeView.swift in Sources */,
 				9677AFCF2CA3389700CABC67 /* Clock.swift in Sources */,
 				9677AFD02CA3389700CABC67 /* ContentView.swift in Sources */,
+				9677B0032CA46FA300CABC67 /* Colors.swift in Sources */,
 				9677AFD12CA3389700CABC67 /* IntervalClockApp.swift in Sources */,
 				9677AFE62CA3436C00CABC67 /* Fonts.swift in Sources */,
+				9677B0092CA4717700CABC67 /* SleepZs.swift in Sources */,
 				9677AFE42CA342B300CABC67 /* PresetView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -346,6 +368,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9677AFE72CA3436C00CABC67 /* Fonts.swift in Sources */,
+				9677B0082CA4717700CABC67 /* SleepZs.swift in Sources */,
+				9677B0042CA46FA300CABC67 /* Colors.swift in Sources */,
+				9677B00C2CA4758A00CABC67 /* HomeView.swift in Sources */,
 				9677AFE32CA342B300CABC67 /* PresetView.swift in Sources */,
 				9677AFD42CA3389700CABC67 /* Clock.swift in Sources */,
 				9677AFD52CA3389700CABC67 /* ContentView.swift in Sources */,

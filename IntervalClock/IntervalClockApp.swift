@@ -11,7 +11,7 @@ import SwiftUI
 struct IntervalClockApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            PresetView()
         }
     }
 }

@@ -15,9 +15,23 @@ class ClockClass {
     
     
     func timeIntervalToString(from timeInterval: TimeInterval) -> String {
-        let minutes = Int(timeInterval) / 60
+        let hours = Int(timeInterval) / 3600
+        let minutes = (Int(timeInterval) % 3600) / 60
         let seconds = Int(timeInterval) % 60
-        return String(format: "%02d:%02d", minutes, seconds)
+        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+    }
+    
+    func timeStringToInterval(_ timeString: String) -> TimeInterval? {
+        let components = timeString.split(separator: ":").map { String($0) }
+        
+        guard components.count == 3,
+              let hours = Double(components[0]),
+              let minutes = Double(components[1]),
+              let seconds = Double(components[2]) else {
+            return nil
+        }
+        
+        return (hours * 3600) + (minutes * 60) + seconds
     }
     
     
