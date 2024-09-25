@@ -53,6 +53,12 @@ class ClockClass {
     }
 }
 
+
+class PresetListClass : ObservableObject{
+    var mainList: [Preset] = []
+}
+
+
 struct Preset{
     var sets: Int
     var reps: TimeInterval

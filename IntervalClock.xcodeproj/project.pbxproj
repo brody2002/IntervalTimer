@@ -138,6 +138,7 @@
 		9677AFC72CA3389700CABC67 /* IntervalClock */ = {
 			isa = PBXGroup;
 			children = (
+				9677AFF22CA3A8F600CABC67 /* UI */,
 				9677AFE02CA33A7000CABC67 /* Info.plist */,
 				9677AFC12CA3389700CABC67 /* Preview Content */,
 				9677AFC22CA3389700CABC67 /* Assets.xcassets */,
@@ -158,6 +159,13 @@
 				9677AFEA2CA348C800CABC67 /* VarelaRound-Regular.ttf */,
 			);
 			path = Varela_Round;
+			sourceTree = "<group>";
+		};
+		9677AFF22CA3A8F600CABC67 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
