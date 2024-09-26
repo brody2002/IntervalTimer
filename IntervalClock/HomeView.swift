@@ -38,6 +38,7 @@ struct HomeView: View {
                                 .cornerRadius(10)
                                 .padding(.bottom, 300)
                         }
+                        
                         if testShow{
                             VStack{
                                 ScrollView {
@@ -47,6 +48,7 @@ struct HomeView: View {
                                             .background(Color.gray.opacity(0.2))
                                             .cornerRadius(10)
                                             .padding(.horizontal)
+                                            //Navigation Link to timer interval
                                     }
                                 }
                             }.padding(.top,400)

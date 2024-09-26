@@ -4,86 +4,103 @@
 //
 //  Created by Brody on 9/24/24.
 //
-
 import SwiftUI
 
-
 struct ContentView: View {
+    @State var setsNum: Int
+    @State var repsNum: TimeInterval
+    @State var restNum: TimeInterval
+    
     @State var Clock = ClockClass()
-    @State var preset1: Preset?  = nil
-    @State var timeRemaining: String = "00:00:10"
-    @State var mainLabel: String = "Run Timer"
-    @State var placeholder: Int = 3
-    @State var restMode: Bool = true
+    @State private var mutatingPreset: Preset  // Use a mutable preset for the timer
+    @State var restMode: Bool = false
+    @State var completed: Bool = false
     
-
+    let originalPreset: Preset  // Store the original preset
     
+    init(setsNum: Int, repsNum: TimeInterval, restNum: TimeInterval) {
+        self.setsNum = setsNum
+        self.repsNum = repsNum
+        self.restNum = restNum
+        self.originalPreset = Preset(sets: setsNum, reps: repsNum, rest: restNum)  // Initialize once and keep constant
+        self._mutatingPreset = State(initialValue: originalPreset)  // Initialize mutating preset with original preset
+    }
     
     var body: some View {
-        ZStack{
+        ZStack {
             restMode ? AppColors.rest.ignoresSafeArea() : Color.white.ignoresSafeArea()
-            ZStack {
-                
+            
+            ZStack() {
                 Image("timer-icon")
                     .resizable()
                     .frame(width: 100, height: 100)
                     .imageScale(.large)
                     .foregroundStyle(.tint)
-                    .padding(.bottom, 500)
                     .opacity(restMode ? 0.0 : 1.0)
+                    .padding(.bottom, 450)
                 
-                RestView()
-                    .padding(.bottom, 500)
-                    .opacity(restMode ? 1.0 : 0.0)
-                    
+                if restMode {
+                    RestView()
+                        .padding(.bottom, 450)
+                }
                 
-                
-                
-                Text("Sets Remaining: \(placeholder)")
+                Text("Sets Remaining: \(setsNum)")
                     .font(.custom(AppFonts.ValeraRound, size: 20))
-                    .padding(.bottom, 180)
-                    .padding(.trailing, 140)
-
+                    .padding(.bottom, 200)
                 
-                
-                Text(timeRemaining)
+                Text("Completed")
+                    .font(.custom(AppFonts.ValeraRound, size: 50))
+                    .padding(.top, 200)
+                    .bold()
+                    .foregroundColor(.red)
+                Text(Clock.timeIntervalToString(from: repsNum))
                     .font(.custom(AppFonts.ValeraRound, size: 80))
-                    .padding(.top,40)
-                    
-                
-                
-                ZStack{
-                    Text(mainLabel)
-                        .font(.custom(AppFonts.ValeraRound, size: 30))
-                        
+                    .padding(.top, 40)
+
+                ZStack {
                     RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                                .stroke(Color.black, lineWidth: 4)  // Outline with blue color and 2-point thickness
-                                .frame(width: 200, height: 100)
-                                
+                        .stroke(Color.black, lineWidth: 4)
+                        .frame(width: 200, height: 100)
+
+                    Text("Run Timer")
+                        .font(.custom(AppFonts.ValeraRound, size: 30))
                 }
                 .padding(.top, 400)
-                
                 .onTapGesture {
-                    print("timer is starting: \n")
-                    preset1 = Preset(sets: 1, reps: TimeInterval(10), rest: TimeInterval(0))
+                    print("Timer is starting")
                     
-                    Clock.startTimer(for: preset1!.reps, onTick: { timeString in
+                    // Reset mutatingPreset to originalPreset before starting the timer
+                    mutatingPreset = originalPreset
+                    
+                    print("mutatingPreset: \(mutatingPreset)")
+                    completed = false
+                    Clock.updateRestMode = { restBool in
+                        self.restMode = restBool
+                    }
+                    
+                    Clock.updateSetsNum = { remainingSets in
+                        self.setsNum = remainingSets  // Update UI with remaining sets
+                    }
+                    
+                    Clock.startTimer(set: mutatingPreset.sets, for: mutatingPreset.reps, rest: mutatingPreset.rest, onTick: { timeString in
                         // Update the UI with the remaining time
-                        timeRemaining = timeString
+                        repsNum = Clock.timeStringToInterval(timeString)! + 1
+                        
                     }, onFinish: {
-                        // Handle what happens when the timer finishes
                         print("Reps complete!")
-                        timeRemaining = "00:00:00"  // Reset the display when finished
-                    })}
-                    
+                        completed = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
+                            repsNum = 0
+                        }
+                        
+                    })
+                }
             }
             .padding()
         }
-        
-        
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(setsNum: 2, repsNum: 3, restNum: 2)
 }
