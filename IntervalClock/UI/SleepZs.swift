@@ -12,7 +12,7 @@ struct RestView: View {
         ZStack{
             Image("snorlax")
                 .resizable()
-                .frame(width: 100, height: 100)
+                .frame(width: 140, height: 140)
             ZStack{
                 Text("Z")
                     .font(.custom(AppFonts.ValeraRound, size: 25))

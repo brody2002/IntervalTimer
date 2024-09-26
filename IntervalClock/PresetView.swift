@@ -184,14 +184,7 @@ struct PresetView: View {
             
             
             // Add Preset Button:
-            ZStack {
-                RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                    .stroke(Color.black, lineWidth: 3)
-                    .frame(width: 350, height: 80)
-                
-                Text("Add Preset: ")
-                    .font(.custom(AppFonts.ValeraRound, size: 30))
-            }
+            AddPresetButton()
             .padding(.top, 520)
             .onTapGesture {
                 PresetList.mainList.append(Preset(sets: setsNum, reps: repsNum, rest: restNum))

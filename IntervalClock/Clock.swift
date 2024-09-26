@@ -103,9 +103,8 @@ class ClockClass {
         timeRemaining = 0  // Reset timeRemaining to avoid conflicts in the next run
     }
 }
-
-class PresetListClass : ObservableObject {
-    var mainList: [Preset] = []
+class PresetListClass: ObservableObject {
+    @Published var mainList: [Preset] = []
 }
 
 struct Preset {

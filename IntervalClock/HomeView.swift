@@ -38,17 +38,12 @@ struct HomeView: View {
                                 .cornerRadius(10)
                                 .padding(.bottom, 300)
                         }
-                        
                         if testShow{
                             VStack{
                                 ScrollView {
                                     ForEach(0..<PresetList.mainList.count, id: \.self) { index in
-                                        Text("Preset \(index + 1): Sets: \(PresetList.mainList[index].sets), Reps: \(PresetList.mainList[index].reps), Rest: \(PresetList.mainList[index].rest)")
-                                            .padding()
-                                            .background(Color.gray.opacity(0.2))
-                                            .cornerRadius(10)
-                                            .padding(.horizontal)
-                                            //Navigation Link to timer interval
+                                        PresetRow(sets:PresetList.mainList[index].sets, reps: PresetList.mainList[index].reps, rest: PresetList.mainList[index].rest)
+                                        
                                     }
                                 }
                             }.padding(.top,400)
