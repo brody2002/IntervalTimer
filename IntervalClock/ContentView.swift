@@ -84,6 +84,9 @@ struct ContentView: View {
                 }
                 .padding(.top, 400)
                 .onTapGesture {
+                    setsNum = originalPreset.sets
+                    isFinished = false
+                    completed = false
                     // Start countdown sequence
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                         showTimer = false
@@ -103,7 +106,7 @@ struct ContentView: View {
                         
                         // Start the timer immediately when "GO!" is displayed
                         print("Timer is starting")
-                        isFinished = false
+                        
                         
                         // Reset mutatingPreset to originalPreset before starting the timer
                         mutatingPreset = originalPreset
@@ -120,7 +123,7 @@ struct ContentView: View {
                         
                         Clock.startTimer(set: mutatingPreset.sets, for: mutatingPreset.reps, rest: mutatingPreset.rest, onTick: { timeString in
                             // Update the UI with the remaining time
-                            repsNum = Clock.timeStringToInterval(timeString)! + 1
+                            repsNum = Clock.timeStringToInterval(timeString)!
                         }, onFinish: {
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -148,5 +151,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(setsNum: 2, repsNum: 3, restNum: 1)
+    ContentView(setsNum: 3, repsNum: 3, restNum: 1)
 }

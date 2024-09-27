@@ -5,6 +5,7 @@
 //  Created by Brody on 9/24/24.
 //
 import SwiftUI
+import SwiftData
 
 struct PresetView: View {
     @State var setsNum: Int = 0
@@ -187,8 +188,8 @@ struct PresetView: View {
             AddPresetButton()
             .padding(.top, 520)
             .onTapGesture {
-                PresetList.mainList.append(Preset(sets: setsNum, reps: repsNum, rest: restNum))
-                print(PresetList.mainList)
+                PresetList.addPreset(Preset(sets: setsNum, reps: repsNum, rest: restNum))
+                PresetList.printPresets()
             }
         }
     }
@@ -236,8 +237,9 @@ struct PresetView: View {
 }
 
 #Preview {
-    @ObservedObject var preset = PresetListClass()
-    PresetView(PresetList: preset)
+    let context = sharedModelContainer.mainContext
+    let preset = PresetListClass(context: context) // Properly initialize PresetListClass with context
+    return PresetView(PresetList: preset)
 }
 
 

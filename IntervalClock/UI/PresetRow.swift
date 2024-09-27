@@ -14,8 +14,7 @@ struct PresetRow: View {
     var Clock = ClockClass()
     
     var body: some View {
-//        NavigationView{
-//            NavigationLink(destination: ContentView(setsNum: sets, repsNum: reps, restNum: rest)){
+
                 ZStack{
                     RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
                         .stroke(Color.black, lineWidth: 3)
@@ -35,8 +34,7 @@ struct PresetRow: View {
                         .padding(.leading, 170)
                         .padding(.top, 70)
                         .foregroundColor(.black)
-//                }
-//            }
+
             
         }
         

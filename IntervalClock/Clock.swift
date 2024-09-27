@@ -1,4 +1,6 @@
 import Foundation
+import SwiftData
+
 
 class ClockClass {
     
@@ -41,20 +43,18 @@ class ClockClass {
             var setsLeft = set
             
             while setsLeft > 0 && self.isRunning {
-                
                 self.timeRemaining = rep
                 
                 // Countdown for reps
                 while self.timeRemaining > 0 && self.isRunning {
-                    Thread.sleep(forTimeInterval: 1.0)
                     DispatchQueue.main.async {
                         self.updateRestMode?(false)
-                    }
-                    DispatchQueue.main.async {
                         onTick(self.timeIntervalToString(from: self.timeRemaining))
                     }
+                    
+                    Thread.sleep(forTimeInterval: 1.0)
                     self.timeRemaining -= 1
-                    print("Time remaining: \(self.timeRemaining)")
+                    print("Reps remaining: \(self.timeRemaining) + 1")
                 }
                 
                 if !self.isRunning { break }
@@ -63,6 +63,7 @@ class ClockClass {
                 
                 // Update setsNum through callback
                 DispatchQueue.main.async {
+                    print("subtract from setsNum")
                     self.updateSetsNum?(setsLeft)
                 }
                 
@@ -74,17 +75,17 @@ class ClockClass {
                 
                 // Countdown for rest
                 self.timeRemaining = rest
+                
+                // Ensure rest period is displayed correctly
                 while self.timeRemaining > 0 && self.isRunning {
-                    Thread.sleep(forTimeInterval: 1.0)
                     DispatchQueue.main.async {
                         self.updateRestMode?(true)
-                    }
-                    DispatchQueue.main.async {
                         onTick(self.timeIntervalToString(from: self.timeRemaining))
                     }
                     
+                    Thread.sleep(forTimeInterval: 1.0)
                     self.timeRemaining -= 1
-                    print("Rest remaining: \(self.timeRemaining)")
+                    print("Rest remaining: \(self.timeRemaining + 1.0)")
                 }
             }
             
@@ -103,14 +104,69 @@ class ClockClass {
         timeRemaining = 0  // Reset timeRemaining to avoid conflicts in the next run
     }
 }
+import SwiftData
+
+
 class PresetListClass: ObservableObject {
-    @Published var mainList: [Preset] = []
+    var mainList: [Preset] = []
+    var context: ModelContext? {
+        didSet {
+            if context != nil {
+                fetchPresets()
+            }
+        }
+    }
+    
+    init(context: ModelContext?) {
+        self.context = context
+        if context != nil {
+            fetchPresets()
+        }
+    }
+    
+    // Fetch all presets from persistent storage
+    func fetchPresets() {
+        guard let context = context else { return }
+        let fetchDescriptor = FetchDescriptor<Preset>()
+        if let presets = try? context.fetch(fetchDescriptor) {
+            mainList = presets
+            print("mainList is now: \(mainList)")
+        }
+    }
+    
+    // Add a new preset to persistent storage
+    func addPreset(_ preset: Preset) {
+        guard let context = context else { return }
+        context.insert(preset)
+        saveContext()
+        fetchPresets() // Refresh the list
+    }
+    
+    
+    func printPresets() {
+        for preset in mainList {
+            print("Preset - Sets: \(preset.sets), Reps: \(preset.reps), Rest: \(preset.rest)")
+        }
+    }
+    
+    // Save changes to the persistent storage
+    private func saveContext() {
+        guard let context = context else { return }
+        do {
+            try context.save()
+        } catch {
+            print("Failed to save context: \(error)")
+        }
+    }
 }
 
-struct Preset {
+
+@Model
+class Preset {
     var sets: Int
     var reps: TimeInterval
     var rest: TimeInterval
+    
     init(sets: Int, reps: TimeInterval, rest: TimeInterval) {
         self.sets = sets
         self.reps = reps
