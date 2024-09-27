@@ -145,7 +145,7 @@ struct ContentView: View {
                     }
                 }.allowsHitTesting(isFinished)
             }
-            .padding()
+            .navigationBarBackButtonHidden(true)
         }
     }
 }

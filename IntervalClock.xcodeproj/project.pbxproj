@@ -49,6 +49,12 @@
 		9677B0192CA6210400CABC67 /* AddPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0182CA6210400CABC67 /* AddPresetButton.swift */; };
 		9677B01A2CA6210400CABC67 /* AddPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0182CA6210400CABC67 /* AddPresetButton.swift */; };
 		9677B01B2CA6210400CABC67 /* AddPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0182CA6210400CABC67 /* AddPresetButton.swift */; };
+		9677B01D2CA739FE00CABC67 /* testtransition view.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B01C2CA739FE00CABC67 /* testtransition view.swift */; };
+		9677B01E2CA739FE00CABC67 /* testtransition view.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B01C2CA739FE00CABC67 /* testtransition view.swift */; };
+		9677B01F2CA739FE00CABC67 /* testtransition view.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B01C2CA739FE00CABC67 /* testtransition view.swift */; };
+		9677B0212CA75B6500CABC67 /* PresetOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0202CA75B6500CABC67 /* PresetOptionsView.swift */; };
+		9677B0222CA75B6500CABC67 /* PresetOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0202CA75B6500CABC67 /* PresetOptionsView.swift */; };
+		9677B0232CA75B6500CABC67 /* PresetOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0202CA75B6500CABC67 /* PresetOptionsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +93,8 @@
 		9677B00A2CA4758A00CABC67 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		9677B0142CA5FD1E00CABC67 /* PresetRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetRow.swift; sourceTree = "<group>"; };
 		9677B0182CA6210400CABC67 /* AddPresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPresetButton.swift; sourceTree = "<group>"; };
+		9677B01C2CA739FE00CABC67 /* testtransition view.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "testtransition view.swift"; sourceTree = "<group>"; };
+		9677B0202CA75B6500CABC67 /* PresetOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetOptionsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -166,6 +174,7 @@
 				9677AFE52CA3436C00CABC67 /* Fonts.swift */,
 				9677AFC42CA3389700CABC67 /* ContentView.swift */,
 				9677B00A2CA4758A00CABC67 /* HomeView.swift */,
+				9677B01C2CA739FE00CABC67 /* testtransition view.swift */,
 				9677B0022CA46FA300CABC67 /* Colors.swift */,
 				9677AFE12CA342B300CABC67 /* PresetView.swift */,
 				9677AFC52CA3389700CABC67 /* IntervalClockApp.swift */,
@@ -180,6 +189,7 @@
 				9677B0062CA4717700CABC67 /* SleepZs.swift */,
 				9677B0142CA5FD1E00CABC67 /* PresetRow.swift */,
 				9677B0182CA6210400CABC67 /* AddPresetButton.swift */,
+				9677B0202CA75B6500CABC67 /* PresetOptionsView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -347,7 +357,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9677B0212CA75B6500CABC67 /* PresetOptionsView.swift in Sources */,
 				9677AFCA2CA3389700CABC67 /* Clock.swift in Sources */,
+				9677B01F2CA739FE00CABC67 /* testtransition view.swift in Sources */,
 				9677B0072CA4717700CABC67 /* SleepZs.swift in Sources */,
 				9677B0192CA6210400CABC67 /* AddPresetButton.swift in Sources */,
 				9677B0052CA46FA300CABC67 /* Colors.swift in Sources */,
@@ -373,6 +385,8 @@
 				9677B0092CA4717700CABC67 /* SleepZs.swift in Sources */,
 				9677AFE42CA342B300CABC67 /* PresetView.swift in Sources */,
 				9677B01A2CA6210400CABC67 /* AddPresetButton.swift in Sources */,
+				9677B0222CA75B6500CABC67 /* PresetOptionsView.swift in Sources */,
+				9677B01E2CA739FE00CABC67 /* testtransition view.swift in Sources */,
 				9677B0172CA5FD1E00CABC67 /* PresetRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,7 +399,9 @@
 				9677B0152CA5FD1E00CABC67 /* PresetRow.swift in Sources */,
 				9677AFE72CA3436C00CABC67 /* Fonts.swift in Sources */,
 				9677B0082CA4717700CABC67 /* SleepZs.swift in Sources */,
+				9677B0232CA75B6500CABC67 /* PresetOptionsView.swift in Sources */,
 				9677B0042CA46FA300CABC67 /* Colors.swift in Sources */,
+				9677B01D2CA739FE00CABC67 /* testtransition view.swift in Sources */,
 				9677B00C2CA4758A00CABC67 /* HomeView.swift in Sources */,
 				9677AFE32CA342B300CABC67 /* PresetView.swift in Sources */,
 				9677AFD42CA3389700CABC67 /* Clock.swift in Sources */,
