@@ -34,7 +34,9 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            restMode ? AppColors.rest.ignoresSafeArea() : AppColors.work.ignoresSafeArea()
+            (restMode ? AppColors.rest : AppColors.work)
+                            .ignoresSafeArea()
+                            .animation(.spring(response: 0.5, dampingFraction: 0.8), value: restMode)
             
             ZStack() {
                 
@@ -145,7 +147,7 @@ struct ContentView: View {
                     }
                 }.allowsHitTesting(isFinished)
             }
-            .navigationBarBackButtonHidden(true)
+            .navigationBarBackButtonHidden(completed)
         }
     }
 }
