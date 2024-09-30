@@ -7,11 +7,15 @@
 import SwiftUI
 
 struct PresetRow: View {
+    let preset: Preset
+    let PresetList: PresetListClass
     var sets: Int
     var reps: TimeInterval
     var rest: TimeInterval
+    @Binding var navigateToEdit: Bool
     var Clock = ClockClass()
     @State var showOptions: Bool = false
+    
     
     var body: some View {
         ZStack {
@@ -39,16 +43,16 @@ struct PresetRow: View {
                 .offset(x: -140)
                 .foregroundColor(.black)
                 .onTapGesture {
-                    withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
+                    withAnimation(.spring(response: 0.2, dampingFraction: 0.7)) {
                         showOptions.toggle()
                     }
                 }
             
             // Always keep the PresetOptionsView present and animate its position
-            PresetOptionsView()
-                .offset(y: showOptions ? 38 : 60) // Adjust these values as needed
-                .offset(x: showOptions ?  -120 : -150)
-                .animation(.spring(response: 0.3, dampingFraction: 0.9), value: showOptions)
+            PresetOptionsView(preset: preset, PresetList: PresetList, navigateToEdit: $navigateToEdit)
+                .offset(y: showOptions ? 38 : 39) // Adjust these values as needed
+                .offset(x: showOptions ?  -120 : -130)
+                .animation(.spring(response: 0.3, dampingFraction: 0.6), value: showOptions)
                 .opacity(showOptions ? 1.0 : 0)
         }
     }
@@ -56,5 +60,11 @@ struct PresetRow: View {
 
 
 #Preview {
-    PresetRow(sets: 3, reps: 10.0, rest: 33.0)
+    let context = sharedModelContainer.mainContext
+    let presetListClass = PresetListClass(context: context)
+    let presetList = PresetListClass(context: context)
+    let preset: Preset = Preset(sets: 2, reps: 2.0, rest: 2.0)
+    
+    
+    PresetRow(preset: preset, PresetList: presetListClass, sets: 3, reps: 10.0, rest: 33.0, navigateToEdit: .constant(false))
 }

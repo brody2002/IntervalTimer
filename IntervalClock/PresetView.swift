@@ -8,11 +8,20 @@ import SwiftUI
 import SwiftData
 
 struct PresetView: View {
+    @State var preset: Preset?
+    @State var Clock = ClockClass()
+    @ObservedObject var PresetList: PresetListClass
     @State var setsNum: Int = 0
     @State var repsNum: TimeInterval = 0.00
     @State var restNum: TimeInterval = 0.00
-    @State var Clock = ClockClass()
-    @ObservedObject var PresetList: PresetListClass
+    
+    init(preset: Preset, PresetList:  PresetListClass){
+        self.setsNum = preset.sets
+        self.repsNum = preset.reps
+        self.restNum = preset.rest
+        self.preset = preset
+        self.PresetList = PresetList
+    }
     
     @State private var isIncrementing = false
     @State private var timer: Timer? = nil
@@ -42,7 +51,6 @@ struct PresetView: View {
                         .onTapGesture {
                             setsNum = max(0, setsNum - 1)
                         }
-                    
                     Text("Sets:")
                         .font(.custom(AppFonts.ValeraRound, size: 20))
                         .padding(.trailing, 135)
@@ -189,6 +197,7 @@ struct PresetView: View {
             .padding(.top, 520)
             .onTapGesture {
                 PresetList.addPreset(Preset(sets: setsNum, reps: repsNum, rest: restNum))
+                PresetList.objectWillChange.send()
                 PresetList.printPresets()
             }
         }
@@ -238,8 +247,9 @@ struct PresetView: View {
 
 #Preview {
     let context = sharedModelContainer.mainContext
-    let preset = PresetListClass(context: context) // Properly initialize PresetListClass with context
-    return PresetView(PresetList: preset)
+    let PresetList = PresetListClass(context: context) // Properly initialize PresetListClass with context
+    let preset: Preset = Preset(sets: 0, reps: 0.0, rest: 0.0)
+    PresetView(preset: preset, PresetList: PresetList)
 }
 
 

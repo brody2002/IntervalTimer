@@ -104,7 +104,6 @@ class ClockClass {
         timeRemaining = 0  // Reset timeRemaining to avoid conflicts in the next run
     }
 }
-import SwiftData
 
 
 class PresetListClass: ObservableObject {
@@ -141,6 +140,13 @@ class PresetListClass: ObservableObject {
         saveContext()
         fetchPresets() // Refresh the list
     }
+    
+    func removePreset(_ preset: Preset) {
+            guard let context = context else { return }
+            context.delete(preset)
+            saveContext()
+            fetchPresets() // Refresh the list
+        }
     
     
     func printPresets() {

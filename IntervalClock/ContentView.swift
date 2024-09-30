@@ -37,9 +37,26 @@ struct ContentView: View {
             (restMode ? AppColors.rest : AppColors.work)
                             .ignoresSafeArea()
                             .animation(.spring(response: 0.5, dampingFraction: 0.8), value: restMode)
+            Image(systemName: "pause.fill")
+                .resizable()
+                .frame(width: 60, height: 60)
+                .foregroundColor(.black)
+                .padding(.bottom, 720)
+                .padding(.leading, 290)
+                .zIndex(20)
+            Image(systemName: "play.fill")
+                .resizable()
+                .frame(width: 60, height: 60)
+                .foregroundColor(.black)
+                .padding(.bottom, 720)
+                .padding(.leading, 290)
+                .zIndex(20)
+            
             
             ZStack() {
                 
+        
+                    
                 
                 if showTimer{
                     Image("timer-icon")
@@ -59,6 +76,11 @@ struct ContentView: View {
                 if restMode {
                     RestView()
                         .padding(.bottom, 450)
+                    Text("REST")
+                        .font(.custom(AppFonts.ValeraRound, size: 30))
+                        .bold()
+//                        .rotationEffect(.degrees(-45))
+                        .padding(.bottom, 260)
                 }
                 
                 Text("Sets Remaining: \(setsNum)")
@@ -147,8 +169,12 @@ struct ContentView: View {
                     }
                 }.allowsHitTesting(isFinished)
             }
-            .navigationBarBackButtonHidden(completed)
+            .navigationBarBackButtonHidden(!completed)
         }
+        .onDisappear {
+                    // Stop the timer when the view disappears
+                    Clock.stopTimer()
+                }
     }
 }
 
