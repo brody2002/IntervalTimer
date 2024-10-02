@@ -22,64 +22,68 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                Spacer().frame(height: 30)
-                Text("Interval Timer:")
-                    .font(.custom(AppFonts.ValeraRound, size: 50))
-                    .bold()
-                    .foregroundColor(.black)
-                Spacer().frame(height: 120)
-                
-                NavigationLink(destination: PresetView(preset: Preset(sets: 0, reps: 0.0, rest: 0.0), PresetList: PresetList)) {
-                    ZStack {
-                        RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                            .stroke(Color.black, lineWidth: 3)
-                            .frame(width: 350, height: 100)
-                            .foregroundColor(.white)
-                        
-                        Text("Make new preset")
-                            .font(.custom(AppFonts.ValeraRound, size: 30))
-                            .bold()
-                            .foregroundColor(.black)
-                    }
-                }
-                .padding(.bottom, -10)
-                
-                Spacer().frame(height: 30)
-                
-                if testShow {
-                    ScrollView {
-                        ForEach(PresetList.mainList, id: \.self) { preset in
-                            VStack {
-                                // Navigation to ContentView
-                                NavigationLink(destination: ContentView(
-                                    setsNum: preset.sets,
-                                    repsNum: preset.reps,
-                                    restNum: preset.rest),isActive: self.$showClockView) {
-                                        PresetRow(
-                                            preset: preset,
-                                            PresetList: PresetList,
-                                            sets: preset.sets,
-                                            reps: preset.reps,
-                                            rest: preset.rest,
-                                            navigateToEdit: .constant(false)
-                                        )
-                                        .padding(.top, 10)
-                                        .padding(.bottom, 10)
-                                        
-                                        
-                                    }
-                                    .frame(width: 360)
-
-                            }
+            ZStack{
+                Color(AppColors.work).ignoresSafeArea()
+                VStack{
+                    Text("Interval Timer:")
+                        .font(.custom(AppFonts.ValeraRound, size: 55))
+                        .bold()
+                        .foregroundColor(.black)
+                        .padding(.top, 100)
+                    Spacer(minLength: 80)
+                    
+                    NavigationLink(destination: PresetView(preset: Preset(sets: 0, reps: 0.0, rest: 0.0), PresetList: PresetList)) {
+                        ZStack {
+                            RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+                                .stroke(Color.black, lineWidth: 6)
+                                .frame(width: 350, height: 100)
+                                .foregroundColor(.white)
+                            
+                            Text("Make new preset")
+                                .font(.custom(AppFonts.ValeraRound, size: 35))
+                                .bold()
+                                .foregroundColor(.black)
                         }
                     }
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 420)
+                    .padding(.bottom, -10)
+                    
+                    Spacer().frame(height: 30)
+                    
+                    if testShow {
+                        ScrollView {
+                            ForEach(PresetList.mainList, id: \.self) { preset in
+                                VStack {
+                                    // Navigation to ContentView
+                                    NavigationLink(destination: ContentView(
+                                        setsNum: preset.sets,
+                                        repsNum: preset.reps,
+                                        restNum: preset.rest),isActive: self.$showClockView) {
+                                            PresetRow(
+                                                preset: preset,
+                                                PresetList: PresetList,
+                                                sets: preset.sets,
+                                                reps: preset.reps,
+                                                rest: preset.rest,
+                                                navigateToEdit: .constant(false)
+                                            )
+                                            .padding(.top, 10)
+                                            .padding(.bottom, 10)
+                                            
+                                            
+                                        }
+                                        .frame(width: 360)
+
+                                }
+                            }
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 420)
+                    }
+                    
+                    Spacer()
                 }
-                
-                Spacer()
             }
+            
         }
 //        // NavigationLink for editing, using `navigateToEdit` and `selectedPreset`
 //        .background(

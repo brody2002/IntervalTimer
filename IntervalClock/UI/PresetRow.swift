@@ -20,7 +20,7 @@ struct PresetRow: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                .stroke(Color.black, lineWidth: 3)
+                .stroke(Color.black, lineWidth: 6)
                 .frame(width: 350, height: 120)
             
             Text("Sets: \(sets)")
