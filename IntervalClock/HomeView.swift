@@ -17,6 +17,8 @@ struct HomeView: View {
     
     // Track which preset is being edited
     @State private var selectedPreset: Preset? = nil
+    @State var showMakePreset: Bool = false
+    @State var showClockView: Bool = false
     
     var body: some View {
         NavigationView {
@@ -53,7 +55,7 @@ struct HomeView: View {
                                 NavigationLink(destination: ContentView(
                                     setsNum: preset.sets,
                                     repsNum: preset.reps,
-                                    restNum: preset.rest)) {
+                                    restNum: preset.rest),isActive: self.$showClockView) {
                                         PresetRow(
                                             preset: preset,
                                             PresetList: PresetList,
@@ -79,16 +81,16 @@ struct HomeView: View {
                 Spacer()
             }
         }
-        // NavigationLink for editing, using `navigateToEdit` and `selectedPreset`
-        .background(
-            NavigationLink(
-                destination: PresetView(preset: selectedPreset ?? Preset(sets: 0, reps: 0.0, rest: 0.0), PresetList: PresetList),
-                isActive: $navigateToEdit
-            ) {
-                EmptyView()
-            }
-            .hidden()
-        )
+//        // NavigationLink for editing, using `navigateToEdit` and `selectedPreset`
+//        .background(
+//            NavigationLink(
+//                destination: PresetView(preset: selectedPreset ?? Preset(sets: 0, reps: 0.0, rest: 0.0), PresetList: PresetList),
+//                isActive: $navigateToEdit
+//            ) {
+//                EmptyView()
+//            }
+//            .hidden()
+//        )
     }
 }
 

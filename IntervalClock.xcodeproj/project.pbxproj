@@ -55,6 +55,9 @@
 		9677B0212CA75B6500CABC67 /* PresetOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0202CA75B6500CABC67 /* PresetOptionsView.swift */; };
 		9677B0222CA75B6500CABC67 /* PresetOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0202CA75B6500CABC67 /* PresetOptionsView.swift */; };
 		9677B0232CA75B6500CABC67 /* PresetOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0202CA75B6500CABC67 /* PresetOptionsView.swift */; };
+		96EDC3B42CADF167003657EE /* ClockImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDC3B32CADF167003657EE /* ClockImageView.swift */; };
+		96EDC3B52CADF167003657EE /* ClockImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDC3B32CADF167003657EE /* ClockImageView.swift */; };
+		96EDC3B62CADF167003657EE /* ClockImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDC3B32CADF167003657EE /* ClockImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +98,7 @@
 		9677B0182CA6210400CABC67 /* AddPresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPresetButton.swift; sourceTree = "<group>"; };
 		9677B01C2CA739FE00CABC67 /* testtransition view.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "testtransition view.swift"; sourceTree = "<group>"; };
 		9677B0202CA75B6500CABC67 /* PresetOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetOptionsView.swift; sourceTree = "<group>"; };
+		96EDC3B32CADF167003657EE /* ClockImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -190,6 +194,7 @@
 				9677B0142CA5FD1E00CABC67 /* PresetRow.swift */,
 				9677B0182CA6210400CABC67 /* AddPresetButton.swift */,
 				9677B0202CA75B6500CABC67 /* PresetOptionsView.swift */,
+				96EDC3B32CADF167003657EE /* ClockImageView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -359,6 +364,7 @@
 			files = (
 				9677B0212CA75B6500CABC67 /* PresetOptionsView.swift in Sources */,
 				9677AFCA2CA3389700CABC67 /* Clock.swift in Sources */,
+				96EDC3B62CADF167003657EE /* ClockImageView.swift in Sources */,
 				9677B01F2CA739FE00CABC67 /* testtransition view.swift in Sources */,
 				9677B0072CA4717700CABC67 /* SleepZs.swift in Sources */,
 				9677B0192CA6210400CABC67 /* AddPresetButton.swift in Sources */,
@@ -387,6 +393,7 @@
 				9677B01A2CA6210400CABC67 /* AddPresetButton.swift in Sources */,
 				9677B0222CA75B6500CABC67 /* PresetOptionsView.swift in Sources */,
 				9677B01E2CA739FE00CABC67 /* testtransition view.swift in Sources */,
+				96EDC3B52CADF167003657EE /* ClockImageView.swift in Sources */,
 				9677B0172CA5FD1E00CABC67 /* PresetRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -406,6 +413,7 @@
 				9677AFE32CA342B300CABC67 /* PresetView.swift in Sources */,
 				9677AFD42CA3389700CABC67 /* Clock.swift in Sources */,
 				9677AFD52CA3389700CABC67 /* ContentView.swift in Sources */,
+				96EDC3B42CADF167003657EE /* ClockImageView.swift in Sources */,
 				9677AFD62CA3389700CABC67 /* IntervalClockApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

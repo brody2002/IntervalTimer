@@ -22,7 +22,7 @@ struct PresetView: View {
         self.preset = preset
         self.PresetList = PresetList
     }
-    
+    @Environment(\.presentationMode) var presentationMode
     @State private var isIncrementing = false
     @State private var timer: Timer? = nil
     
@@ -199,6 +199,7 @@ struct PresetView: View {
                 PresetList.addPreset(Preset(sets: setsNum, reps: repsNum, rest: restNum))
                 PresetList.objectWillChange.send()
                 PresetList.printPresets()
+                self.presentationMode.wrappedValue.dismiss()
             }
         }
     }

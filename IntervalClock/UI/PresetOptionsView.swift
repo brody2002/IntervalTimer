@@ -33,15 +33,15 @@ struct PresetOptionsView: View {
                     
                 }
 //                .padding(.top, 70)
-            Image(systemName: "pencil.circle.fill")
-                .resizable()
-                .frame(width: 25, height: 25)
-                .padding(.leading, 40)
-                .foregroundColor(.black)
-                .onTapGesture {
-                    print("edit preset! navigateToEdit -> true")
-                    navigateToEdit = true
-                } /*.navigate(to: PresetView(preset: preset, PresetList: PresetList), when: navigateToEdit)*/
+//            Image(systemName: "pencil.circle.fill")
+//                .resizable()
+//                .frame(width: 25, height: 25)
+//                .padding(.leading, 40)
+//                .foregroundColor(.black)
+//                .onTapGesture {
+//                    print("edit preset! navigateToEdit -> true")
+//                    navigateToEdit = true
+//                } /*.navigate(to: PresetView(preset: preset, PresetList: PresetList), when: navigateToEdit)*/
                 
 
         }

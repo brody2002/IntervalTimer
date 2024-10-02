@@ -14,6 +14,8 @@ struct ContentView: View {
     @State var Clock = ClockClass()
     @State private var mutatingPreset: Preset  // Use a mutable preset for the timer
     @State var restMode: Bool = false
+    @State var pauseMode: Bool = false
+    @State var pushedResume: Bool = false
     @State var completed: Bool = false
     @State var isFinished: Bool = true
     @State var show1: Bool = false
@@ -21,6 +23,14 @@ struct ContentView: View {
     @State var show3: Bool = false
     @State var showGo: Bool = false
     @State var showTimer: Bool = true
+    @State var timeLeft: TimeInterval = 0.00
+    @State var isHoldingRunTimer : Bool = false
+    @State var isHoldingBack : Bool = false
+    
+    @Environment(\.presentationMode) var presentationMode
+    
+    @State var returnTuple: (TimeInterval? , Int?) = (0.0, 0)
+    
     
     let originalPreset: Preset  // Store the original preset
     
@@ -37,34 +47,108 @@ struct ContentView: View {
             (restMode ? AppColors.rest : AppColors.work)
                             .ignoresSafeArea()
                             .animation(.spring(response: 0.5, dampingFraction: 0.8), value: restMode)
+            
+            ZStack {
+                RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+                    .fill(isHoldingRunTimer ? Color.white.opacity(0.3) : Color.clear) // Use any color you'd like
+                    .frame(width: 100, height: 40)
+                    .overlay(
+                        RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+                            .stroke(Color.black, lineWidth: 6)
+                    )
+
+                Text(restMode ? "Rest" : "Work")
+                    .font(.custom(AppFonts.ValeraRound, size: 30))
+            }.padding(.bottom, 700)
+            
+            
+            
             Image(systemName: "pause.fill")
                 .resizable()
-                .frame(width: 60, height: 60)
+                .frame(width: !pauseMode ? 60 : 0, height: !pauseMode ? 60: 0)
                 .foregroundColor(.black)
-                .padding(.bottom, 720)
-                .padding(.leading, 290)
-                .zIndex(20)
+                .padding(.top, 650)
+                .padding(.leading, 200)
+                .zIndex(20).onTapGesture {
+                    withAnimation(.spring(response: 0.3, dampingFraction: 0.6)){
+                        self.pauseMode = true
+                    }
+                    returnTuple = Clock.pauseTimer()
+                    print("returntuple: \(returnTuple)")
+                    Clock.stopTimer()
+                }
+                .opacity(self.pauseMode ? 0.0 : 1.0)
+                .allowsHitTesting(!self.pauseMode && !isFinished)
+            
+            
             Image(systemName: "play.fill")
                 .resizable()
-                .frame(width: 60, height: 60)
+                .frame(width: pauseMode ? 60 : 0, height: pauseMode ? 60: 0)
                 .foregroundColor(.black)
-                .padding(.bottom, 720)
-                .padding(.leading, 290)
+                .padding(.top, 650)
+                .padding(.leading, 200)
                 .zIndex(20)
+                .onTapGesture {
+                    withAnimation(.spring(response: 0.3, dampingFraction: 0.5)){
+                        self.pauseMode = false
+                    }
+                    guard let timeLeft = returnTuple.0, let setsLeft = returnTuple.1 else {
+                        print("No saved state for resuming the timer")
+                        return
+                    }
+                    Clock.resumeTimer(timeLeft: timeLeft, sets: setsLeft, inRest: restMode, onTick: { timeString in
+                        repsNum = Clock.timeStringToInterval(timeString)!
+                    }, onFinish: {
+                        repsNum = 0
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            print("Reps complete!")
+                            completed = true
+                            isFinished = true
+                        }
+                    })
+                    print("Resumed timer")
+                }
+                .opacity(!self.pauseMode ? 0.0 : 1.0)
+                .allowsHitTesting(self.pauseMode)
+            
+            
+            //Back Button
+            Image(systemName: "arrowshape.turn.up.backward.fill")
+                .resizable()
+                .frame(width: 60, height: 60)
+                .foregroundColor(self.isHoldingBack ? Color.black.opacity(0.6) : Color.black)
+                .scaleEffect(x: 1, y: -1)
+                .padding(.bottom, 700)
+                .padding(.trailing, 300)
+                .onTapGesture {
+                    Clock.stopTimer()
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+                .onLongPressGesture(minimumDuration: 3, pressing: { isPressing in
+                    withAnimation(.spring(response: 0.3, dampingFraction: 0.9)) {
+                        self.isHoldingBack = isPressing
+                        }
+                    }, perform: {
+                        
+                    }
+                )
+            
+            
+            Circle()
+                .stroke(Color.black, lineWidth: 6)
+                .frame(width: 140, height: 140)
+                .padding(.top, 650)
+                .padding(.leading, 200)
             
             
             ZStack() {
-                
-        
-                    
-                
                 if showTimer{
+
                     Image("timer-icon")
                         .resizable()
                         .frame(width: 100, height: 100)
                         .imageScale(.large)
                         .foregroundStyle(.tint)
-                        .opacity(restMode ? 0.0 : 1.0)
                         .padding(.bottom, 450)
                 }
                 if show3{Text("3").font(.custom(AppFonts.ValeraRound, size: 70)).bold().padding(.bottom, 450)}
@@ -73,41 +157,42 @@ struct ContentView: View {
                 if showGo{Text("GO!").font(.custom(AppFonts.ValeraRound, size: 70)).bold().padding(.bottom, 450)}
                
                 
-                if restMode {
-                    RestView()
-                        .padding(.bottom, 450)
-                    Text("REST")
-                        .font(.custom(AppFonts.ValeraRound, size: 30))
-                        .bold()
-//                        .rotationEffect(.degrees(-45))
-                        .padding(.bottom, 260)
-                }
+//                if restMode {
+//                    RestView()
+//                        .padding(.bottom, 450)
+//                    Text("REST")
+//                        .font(.custom(AppFonts.ValeraRound, size: 30))
+//                        .bold()
+//                    
+//                        .padding(.bottom, 260)
+//                }
+//                
                 
                 Text("Sets Remaining: \(setsNum)")
                     .font(.custom(AppFonts.ValeraRound, size: 20))
                     .padding(.bottom, 200)
                 
-                if completed{
-                    Text("Completed")
-                        .font(.custom(AppFonts.ValeraRound, size: 50))
-                        .padding(.top, 200)
-                        .bold()
-                        .foregroundColor(.red)
-                }
+                
                 Text(Clock.timeIntervalToString(from: repsNum))
                     .font(.custom(AppFonts.ValeraRound, size: 80))
                     .padding(.top, 40)
 
+                
                 ZStack {
                     RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                        .stroke(Color.black, lineWidth: 4)
-                        .frame(width: 200, height: 100)
+                        .fill(isHoldingRunTimer ? Color.white.opacity(0.3) : Color.clear) // Use any color you'd like
+                        .frame(width: 320, height: 100)
+                        .overlay(
+                            RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+                                .stroke(Color.black, lineWidth: 6)
+                        )
 
                     Text("Run Timer")
-                        .font(.custom(AppFonts.ValeraRound, size: 30))
+                        .font(.custom(AppFonts.ValeraRound, size: 50))
                 }
-                .padding(.top, 400)
+                .padding(.top, 300)
                 .onTapGesture {
+                    
                     setsNum = originalPreset.sets
                     isFinished = false
                     completed = false
@@ -116,48 +201,65 @@ struct ContentView: View {
                         showTimer = false
                         show3 = true
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {  // Delay for 1 second after show3
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                         show3 = false
                         show2 = true
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {  // Delay for 1 second after show2
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                         show2 = false
                         show1 = true
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {  // Delay for 1 second after show1
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
                         show1 = false
                         showGo = true
                         
-                        // Start the timer immediately when "GO!" is displayed
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0 ){
+                        self.showTimer = true
+                        
+                        
+                        
                         print("Timer is starting")
                         
                         
-                        // Reset mutatingPreset to originalPreset before starting the timer
                         mutatingPreset = originalPreset
                         
                         print("mutatingPreset: \(mutatingPreset)")
                         completed = false
                         Clock.updateRestMode = { restBool in
                             self.restMode = restBool
+//                            self.moveTimer.toggle()
                         }
                         
                         Clock.updateSetsNum = { remainingSets in
-                            self.setsNum = remainingSets  // Update UI with remaining sets
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.7)){
+                                self.setsNum = remainingSets
+                            }
                         }
                         
-                        Clock.startTimer(set: mutatingPreset.sets, for: mutatingPreset.reps, rest: mutatingPreset.rest, onTick: { timeString in
-                            // Update the UI with the remaining time
-                            repsNum = Clock.timeStringToInterval(timeString)!
+                        Clock.updatePauseMode = {paused in
+                            self.pauseMode = paused
+                        }
+                        
+                        Clock.startClock(sets: mutatingPreset.sets, reps: mutatingPreset.reps, rest: mutatingPreset.rest, inRestMode: false, onTick: { timeString in
+                            
+                            withAnimation(.spring(response: 0.3 ,dampingFraction: 0.5)){
+                                repsNum = Clock.timeStringToInterval(timeString)!
+                            }
                         }, onFinish: {
                             
+                            repsNum = 0
+                            setsNum = 0
                             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                repsNum = 0
-                            }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                                 print("Reps complete!")
                                 completed = true
                                 isFinished = true
+                                
+                                
                             }
+                            
+                            
+                            
                             
                         })
                     }
@@ -165,11 +267,22 @@ struct ContentView: View {
                     // After "GO!" has been shown for 1 second, revert back to the timer icon
                     DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                         showGo = false
-                        showTimer = true
+                        self.showTimer = true
+                        
                     }
-                }.allowsHitTesting(isFinished)
+                }
+                .onLongPressGesture(minimumDuration: 3, pressing: { isPressing in
+                    withAnimation(.spring(response: 0.3, dampingFraction: 0.9)) {
+                        self.isHoldingRunTimer = isPressing
+                        }
+                    }, perform: {
+                        
+                    }
+                )
+                .allowsHitTesting(isFinished)
+                
             }
-            .navigationBarBackButtonHidden(!completed)
+            .navigationBarBackButtonHidden(true)
         }
         .onDisappear {
                     // Stop the timer when the view disappears
@@ -179,5 +292,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(setsNum: 3, repsNum: 3, restNum: 1)
+    ContentView(setsNum: 2, repsNum: 2, restNum: 1)
 }
