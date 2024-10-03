@@ -7,7 +7,7 @@
 import SwiftUI
 import SwiftData
 
-struct PresetView: View {
+struct EditPresetView: View {
     //Inits
     @State var preset: Preset?
     @ObservedObject var PresetList: PresetListClass
@@ -229,7 +229,7 @@ struct PresetView: View {
             
             // Add Preset Button:
         
-            AddPresetButton()
+            EditPresetButton()
             .padding(.top, 520)
             .onTapGesture {
                 PresetList.addPreset(Preset(sets: setsNum, reps: repsNum, rest: restNum))
@@ -289,8 +289,9 @@ struct PresetView: View {
     let context = sharedModelContainer.mainContext
     let PresetList = PresetListClass(context: context) // Properly initialize PresetListClass with context
     let preset: Preset = Preset(sets: 0, reps: 0.0, rest: 0.0)
-    PresetView(preset: preset, PresetList: PresetList)
+    EditPresetView(preset: preset, PresetList: PresetList)
 }
+
 
 
 

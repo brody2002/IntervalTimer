@@ -61,6 +61,12 @@
 		96AA5AE22CAF279D00F80BEE /* CountDown.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 96AA5ADD2CAF279D00F80BEE /* CountDown.mp3 */; };
 		96AA5AE32CAF279D00F80BEE /* GoSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 96AA5ADE2CAF279D00F80BEE /* GoSound.mp3 */; };
 		96AA5AE42CAF279D00F80BEE /* CountDown.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 96AA5ADD2CAF279D00F80BEE /* CountDown.mp3 */; };
+		96AA5AE62CAF3CBD00F80BEE /* EditPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AA5AE52CAF3CBD00F80BEE /* EditPresetButton.swift */; };
+		96AA5AE72CAF3CBD00F80BEE /* EditPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AA5AE52CAF3CBD00F80BEE /* EditPresetButton.swift */; };
+		96AA5AE82CAF3CBD00F80BEE /* EditPresetButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AA5AE52CAF3CBD00F80BEE /* EditPresetButton.swift */; };
+		96AA5AEA2CAF525F00F80BEE /* EditPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AA5AE92CAF525F00F80BEE /* EditPresetView.swift */; };
+		96AA5AEB2CAF525F00F80BEE /* EditPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AA5AE92CAF525F00F80BEE /* EditPresetView.swift */; };
+		96AA5AEC2CAF525F00F80BEE /* EditPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AA5AE92CAF525F00F80BEE /* EditPresetView.swift */; };
 		96EDC3B42CADF167003657EE /* ClockImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDC3B32CADF167003657EE /* ClockImageView.swift */; };
 		96EDC3B52CADF167003657EE /* ClockImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDC3B32CADF167003657EE /* ClockImageView.swift */; };
 		96EDC3B62CADF167003657EE /* ClockImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDC3B32CADF167003657EE /* ClockImageView.swift */; };
@@ -106,6 +112,8 @@
 		9677B0202CA75B6500CABC67 /* PresetOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetOptionsView.swift; sourceTree = "<group>"; };
 		96AA5ADD2CAF279D00F80BEE /* CountDown.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CountDown.mp3; sourceTree = "<group>"; };
 		96AA5ADE2CAF279D00F80BEE /* GoSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = GoSound.mp3; sourceTree = "<group>"; };
+		96AA5AE52CAF3CBD00F80BEE /* EditPresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPresetButton.swift; sourceTree = "<group>"; };
+		96AA5AE92CAF525F00F80BEE /* EditPresetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPresetView.swift; sourceTree = "<group>"; };
 		96EDC3B32CADF167003657EE /* ClockImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -192,6 +200,7 @@
 				9677AFE12CA342B300CABC67 /* PresetView.swift */,
 				9677AFC52CA3389700CABC67 /* IntervalClockApp.swift */,
 				9677AFC62CA3389700CABC67 /* Preview Assets.xcassets */,
+				96AA5AE92CAF525F00F80BEE /* EditPresetView.swift */,
 			);
 			path = IntervalClock;
 			sourceTree = "<group>";
@@ -204,6 +213,7 @@
 				9677B0182CA6210400CABC67 /* AddPresetButton.swift */,
 				9677B0202CA75B6500CABC67 /* PresetOptionsView.swift */,
 				96EDC3B32CADF167003657EE /* ClockImageView.swift */,
+				96AA5AE52CAF3CBD00F80BEE /* EditPresetButton.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -396,8 +406,10 @@
 				9677AFE82CA3436C00CABC67 /* Fonts.swift in Sources */,
 				9677AFE22CA342B300CABC67 /* PresetView.swift in Sources */,
 				9677B00D2CA4758A00CABC67 /* HomeView.swift in Sources */,
+				96AA5AEA2CAF525F00F80BEE /* EditPresetView.swift in Sources */,
 				9677AFCB2CA3389700CABC67 /* ContentView.swift in Sources */,
 				9677B0162CA5FD1E00CABC67 /* PresetRow.swift in Sources */,
+				96AA5AE82CAF3CBD00F80BEE /* EditPresetButton.swift in Sources */,
 				9677AFCC2CA3389700CABC67 /* IntervalClockApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,7 +419,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9677B00B2CA4758A00CABC67 /* HomeView.swift in Sources */,
+				96AA5AE62CAF3CBD00F80BEE /* EditPresetButton.swift in Sources */,
 				9677AFCF2CA3389700CABC67 /* Clock.swift in Sources */,
+				96AA5AEC2CAF525F00F80BEE /* EditPresetView.swift in Sources */,
 				9677AFD02CA3389700CABC67 /* ContentView.swift in Sources */,
 				9677B0032CA46FA300CABC67 /* Colors.swift in Sources */,
 				9677AFD12CA3389700CABC67 /* IntervalClockApp.swift in Sources */,
@@ -432,9 +446,11 @@
 				9677B0082CA4717700CABC67 /* SleepZs.swift in Sources */,
 				9677B0232CA75B6500CABC67 /* PresetOptionsView.swift in Sources */,
 				9677B0042CA46FA300CABC67 /* Colors.swift in Sources */,
+				96AA5AE72CAF3CBD00F80BEE /* EditPresetButton.swift in Sources */,
 				9677B01D2CA739FE00CABC67 /* testtransition view.swift in Sources */,
 				9677B00C2CA4758A00CABC67 /* HomeView.swift in Sources */,
 				9677AFE32CA342B300CABC67 /* PresetView.swift in Sources */,
+				96AA5AEB2CAF525F00F80BEE /* EditPresetView.swift in Sources */,
 				9677AFD42CA3389700CABC67 /* Clock.swift in Sources */,
 				9677AFD52CA3389700CABC67 /* ContentView.swift in Sources */,
 				96EDC3B42CADF167003657EE /* ClockImageView.swift in Sources */,

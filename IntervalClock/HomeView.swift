@@ -55,9 +55,8 @@ struct HomeView: View {
                                 VStack {
                                     // Navigation to ContentView
                                     NavigationLink(destination: ContentView(
-                                        setsNum: preset.sets,
-                                        repsNum: preset.reps,
-                                        restNum: preset.rest),isActive: self.$showClockView) {
+                                        preset:preset,
+                                        pressetList: PresetList),isActive: self.$showClockView) {
                                             PresetRow(
                                                 preset: preset,
                                                 PresetList: PresetList,
@@ -85,16 +84,7 @@ struct HomeView: View {
             }
             
         }
-//        // NavigationLink for editing, using `navigateToEdit` and `selectedPreset`
-//        .background(
-//            NavigationLink(
-//                destination: PresetView(preset: selectedPreset ?? Preset(sets: 0, reps: 0.0, rest: 0.0), PresetList: PresetList),
-//                isActive: $navigateToEdit
-//            ) {
-//                EmptyView()
-//            }
-//            .hidden()
-//        )
+
     }
 }
 

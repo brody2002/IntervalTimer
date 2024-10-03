@@ -164,6 +164,14 @@ class PresetListClass: ObservableObject {
             fetchPresets()
         }
     }
+    func printPreset(_ preset: Preset) -> String{
+        return ("Preset - Sets: \(preset.sets), Reps: \(preset.reps), Rest: \(preset.rest)")
+    }
+    func printPresets() {
+        for preset in mainList {
+            print("Preset - Sets: \(preset.sets), Reps: \(preset.reps), Rest: \(preset.rest)")
+        }
+    }
     
     // Fetch all presets from persistent storage
     func fetchPresets() {
@@ -191,9 +199,30 @@ class PresetListClass: ObservableObject {
         }
     
     
-    func printPresets() {
-        for preset in mainList {
-            print("Preset - Sets: \(preset.sets), Reps: \(preset.reps), Rest: \(preset.rest)")
+    
+    
+    func editPreset(_ preset: Preset, inputPreset: Preset) {
+        print("InputPreset: \(printPreset(inputPreset)) originalPreset: \(printPreset(preset))")
+
+        guard let context = context else { return }
+        
+        // Re-fetch the original preset from the context
+        let fetchDescriptor = FetchDescriptor<Preset>()
+        if let fetchedPresets = try? context.fetch(fetchDescriptor),
+           let fetchedPreset = fetchedPresets.first(where: { $0 == preset }) {
+            print("we found the same id! YIPEEE")
+            
+            // Modify properties of the re-fetched preset
+            fetchedPreset.sets = inputPreset.sets
+            fetchedPreset.reps = inputPreset.reps
+            fetchedPreset.rest = inputPreset.rest
+            
+            // Save the changes to the persistent storage
+            saveContext()
+            
+            print("Updated fetchedPreset: \(printPreset(fetchedPreset))")
+        } else {
+            print("Failed to fetch the original preset from the context")
         }
     }
     

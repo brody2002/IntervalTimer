@@ -62,7 +62,7 @@ struct PresetRow: View {
 #Preview {
     let context = sharedModelContainer.mainContext
     let presetListClass = PresetListClass(context: context)
-    let presetList = PresetListClass(context: context)
+
     let preset: Preset = Preset(sets: 2, reps: 2.0, rest: 2.0)
     
     
