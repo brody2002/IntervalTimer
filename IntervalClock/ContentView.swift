@@ -5,6 +5,7 @@
 //  Created by Brody on 9/24/24.
 //
 import SwiftUI
+import AVFoundation
 
 struct ContentView: View {
     @State var setsNum: Int
@@ -27,6 +28,9 @@ struct ContentView: View {
     @State var isHoldingRunTimer : Bool = false
     @State var isHoldingBack : Bool = false
     
+    @State private var audioPlayer: AVAudioPlayer?
+
+    
     @Environment(\.presentationMode) var presentationMode
     
     @State var returnTuple: (TimeInterval? , Int?) = (0.0, 0)
@@ -42,11 +46,31 @@ struct ContentView: View {
         self._mutatingPreset = State(initialValue: originalPreset)  // Initialize mutating preset with original preset
     }
     
+    func playAudio(_ inputString: String) {
+        if let url = Bundle.main.url(forResource: inputString, withExtension: "mp3") {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                audioPlayer?.play()
+                print("Audio Playing")
+            } catch {
+                print("Couldn't play Audio")
+            }
+        } else {
+            print("Can't Find File")
+        }
+    }
+    
     var body: some View {
         ZStack {
             (restMode ? AppColors.rest : AppColors.work)
                             .ignoresSafeArea()
                             .animation(.spring(response: 0.5, dampingFraction: 0.8), value: restMode)
+            
+            Text("Edit")
+                .font(.custom(AppFonts.ValeraRound, size: 20))
+                .padding(.bottom, 700)
+                .padding(.leading, 270)
+            
             
             ZStack {
                 RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
@@ -86,7 +110,7 @@ struct ContentView: View {
                 .frame(width: pauseMode ? 60 : 0, height: pauseMode ? 60: 0)
                 .foregroundColor(.black)
                 .padding(.top, 650)
-                .padding(.leading, 200)
+                .padding(.leading, 215)
                 .zIndex(20)
                 .onTapGesture {
                     withAnimation(.spring(response: 0.3, dampingFraction: 0.5)){
@@ -155,18 +179,7 @@ struct ContentView: View {
                 if show2{Text("2").font(.custom(AppFonts.ValeraRound, size: 70)).bold().padding(.bottom, 450)}
                 if show1{Text("1").font(.custom(AppFonts.ValeraRound, size: 70)).bold().padding(.bottom, 450)}
                 if showGo{Text("GO!").font(.custom(AppFonts.ValeraRound, size: 70)).bold().padding(.bottom, 450)}
-               
-                
-//                if restMode {
-//                    RestView()
-//                        .padding(.bottom, 450)
-//                    Text("REST")
-//                        .font(.custom(AppFonts.ValeraRound, size: 30))
-//                        .bold()
-//                    
-//                        .padding(.bottom, 260)
-//                }
-//                
+
                 
                 Text("Sets Remaining: \(setsNum)")
                     .font(.custom(AppFonts.ValeraRound, size: 20))
@@ -194,28 +207,32 @@ struct ContentView: View {
                 .onTapGesture {
                     
                     setsNum = originalPreset.sets
-                    isFinished = false
                     completed = false
                     // Start countdown sequence
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        playAudio("CountDown")
                         showTimer = false
                         show3 = true
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        playAudio("CountDown")
                         show3 = false
                         show2 = true
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                        playAudio("CountDown")
                         show2 = false
                         show1 = true
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                        playAudio("GoSound")
                         show1 = false
                         showGo = true
                         
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 5.0 ){
                         self.showTimer = true
+                        isFinished = false
                         
                         
                         

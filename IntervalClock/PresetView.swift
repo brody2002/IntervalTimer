@@ -14,6 +14,9 @@ struct PresetView: View {
     @State var setsNum: Int = 0
     @State var repsNum: TimeInterval = 0.00
     @State var restNum: TimeInterval = 0.00
+    @State var isHolding: Bool = false
+    
+    @Environment(\.presentationMode) var presentationMode
     
     init(preset: Preset, PresetList:  PresetListClass){
         self.setsNum = preset.sets
@@ -22,7 +25,6 @@ struct PresetView: View {
         self.preset = preset
         self.PresetList = PresetList
     }
-    @Environment(\.presentationMode) var presentationMode
     @State private var isIncrementing = false
     @State private var timer: Timer? = nil
     
@@ -30,11 +32,30 @@ struct PresetView: View {
     
     var body: some View {
         ZStack{
-            Color.white.ignoresSafeArea()
             
+            AppColors.work.ignoresSafeArea()
+            Image(systemName: "arrowshape.turn.up.backward.fill")
+                .resizable()
+                .frame(width: 60, height: 60)
+                .foregroundColor(self.isHolding ? Color.black.opacity(0.6) : Color.black)
+                .scaleEffect(x: 1, y: -1)
+                .padding(.bottom, 700)
+                .padding(.trailing, 300)
+                .onTapGesture {
+                    Clock.stopTimer()
+                    self.presentationMode.wrappedValue.dismiss()
+                }
+                .onLongPressGesture(minimumDuration: 3, pressing: { isPressing in
+                    withAnimation(.spring(response: 0.3, dampingFraction: 0.9)) {
+                        self.isHolding = isPressing
+                        }
+                    }, perform: {
+                        
+                    }
+                )
             Text("Create Preset:")
                 .font(.custom(AppFonts.ValeraRound, size: 50))
-                .padding(.bottom, 500)
+                .padding(.bottom, 400)
             
             VStack(alignment: .leading, spacing: 32) {
                 
@@ -184,7 +205,7 @@ struct PresetView: View {
             
             
             RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                .stroke(Color.black, lineWidth: 3)
+                .stroke(Color.black, lineWidth: 6)
                 .frame(width: 350, height: 400)
                 .padding(.top, 200)
             
@@ -201,7 +222,7 @@ struct PresetView: View {
                 PresetList.printPresets()
                 self.presentationMode.wrappedValue.dismiss()
             }
-        }
+        }.navigationBarBackButtonHidden(true)
     }
     
     

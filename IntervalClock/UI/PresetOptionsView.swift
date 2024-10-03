@@ -15,33 +15,32 @@ struct PresetOptionsView: View {
     var body: some View {
         ZStack{
             RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                .foregroundColor(.white)
+                .foregroundColor(.clear)
                 .frame(width: 100, height: 40)
 //                .padding(.top,70)
 //                .padding(.trailing, 240)
-            Image(systemName: "trash.fill")
-                .resizable()
-                .frame(width: 30, height: 30)
-                .padding(.trailing, 40)
-                .foregroundColor(.black)
-                .onTapGesture {
-                    print("delete preset")
-                    withAnimation(.spring(response: 0.3, dampingFraction: 0.6)){
-                        PresetList.removePreset(preset)
-                        PresetList.objectWillChange.send()
-                    }
-                    
-                }
-//                .padding(.top, 70)
-//            Image(systemName: "pencil.circle.fill")
+//            Image(systemName: "trash.fill")
 //                .resizable()
-//                .frame(width: 25, height: 25)
-//                .padding(.leading, 40)
+//                .frame(width: 30, height: 30)
+//                .padding(.trailing, 40)
 //                .foregroundColor(.black)
 //                .onTapGesture {
-//                    print("edit preset! navigateToEdit -> true")
-//                    navigateToEdit = true
-//                } /*.navigate(to: PresetView(preset: preset, PresetList: PresetList), when: navigateToEdit)*/
+//                    print("delete preset")
+//                    withAnimation(.spring(response: 0.3, dampingFraction: 0.6)){
+//                        PresetList.removePreset(preset)
+//                        PresetList.objectWillChange.send()
+//                    }
+//                    
+//                }
+            Image(systemName: "pencil.circle.fill")
+                .resizable()
+                .frame(width: 25, height: 25)
+                .padding(.leading, 40)
+                .foregroundColor(.black)
+                .onTapGesture {
+                    print("edit preset! navigateToEdit -> true")
+                    navigateToEdit = true
+                } /*.navigate(to: PresetView(preset: preset, PresetList: PresetList), when: navigateToEdit)*/
                 
 
         }

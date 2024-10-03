@@ -55,6 +55,12 @@
 		9677B0212CA75B6500CABC67 /* PresetOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0202CA75B6500CABC67 /* PresetOptionsView.swift */; };
 		9677B0222CA75B6500CABC67 /* PresetOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0202CA75B6500CABC67 /* PresetOptionsView.swift */; };
 		9677B0232CA75B6500CABC67 /* PresetOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9677B0202CA75B6500CABC67 /* PresetOptionsView.swift */; };
+		96AA5ADF2CAF279D00F80BEE /* GoSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 96AA5ADE2CAF279D00F80BEE /* GoSound.mp3 */; };
+		96AA5AE02CAF279D00F80BEE /* CountDown.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 96AA5ADD2CAF279D00F80BEE /* CountDown.mp3 */; };
+		96AA5AE12CAF279D00F80BEE /* GoSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 96AA5ADE2CAF279D00F80BEE /* GoSound.mp3 */; };
+		96AA5AE22CAF279D00F80BEE /* CountDown.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 96AA5ADD2CAF279D00F80BEE /* CountDown.mp3 */; };
+		96AA5AE32CAF279D00F80BEE /* GoSound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 96AA5ADE2CAF279D00F80BEE /* GoSound.mp3 */; };
+		96AA5AE42CAF279D00F80BEE /* CountDown.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 96AA5ADD2CAF279D00F80BEE /* CountDown.mp3 */; };
 		96EDC3B42CADF167003657EE /* ClockImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDC3B32CADF167003657EE /* ClockImageView.swift */; };
 		96EDC3B52CADF167003657EE /* ClockImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDC3B32CADF167003657EE /* ClockImageView.swift */; };
 		96EDC3B62CADF167003657EE /* ClockImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96EDC3B32CADF167003657EE /* ClockImageView.swift */; };
@@ -98,6 +104,8 @@
 		9677B0182CA6210400CABC67 /* AddPresetButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPresetButton.swift; sourceTree = "<group>"; };
 		9677B01C2CA739FE00CABC67 /* testtransition view.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "testtransition view.swift"; sourceTree = "<group>"; };
 		9677B0202CA75B6500CABC67 /* PresetOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresetOptionsView.swift; sourceTree = "<group>"; };
+		96AA5ADD2CAF279D00F80BEE /* CountDown.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CountDown.mp3; sourceTree = "<group>"; };
+		96AA5ADE2CAF279D00F80BEE /* GoSound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = GoSound.mp3; sourceTree = "<group>"; };
 		96EDC3B32CADF167003657EE /* ClockImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -169,6 +177,7 @@
 		9677AFC72CA3389700CABC67 /* IntervalClock */ = {
 			isa = PBXGroup;
 			children = (
+				96AA5ADC2CAF277200F80BEE /* Sounds */,
 				9677AFFB2CA4645E00CABC67 /* Varela_Round */,
 				9677AFF22CA3A8F600CABC67 /* UI */,
 				9677AFE02CA33A7000CABC67 /* Info.plist */,
@@ -208,6 +217,15 @@
 			name = Varela_Round;
 			path = IntervalClock/Varela_Round;
 			sourceTree = SOURCE_ROOT;
+		};
+		96AA5ADC2CAF277200F80BEE /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				96AA5ADD2CAF279D00F80BEE /* CountDown.mp3 */,
+				96AA5ADE2CAF279D00F80BEE /* GoSound.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -329,6 +347,8 @@
 				9677AFC82CA3389700CABC67 /* Assets.xcassets in Resources */,
 				9677AFC92CA3389700CABC67 /* Preview Assets.xcassets in Resources */,
 				9677B0002CA4645E00CABC67 /* OFL.txt in Resources */,
+				96AA5AE32CAF279D00F80BEE /* GoSound.mp3 in Resources */,
+				96AA5AE42CAF279D00F80BEE /* CountDown.mp3 in Resources */,
 				9677B0012CA4645E00CABC67 /* VarelaRound-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,6 +360,8 @@
 				9677AFCD2CA3389700CABC67 /* Assets.xcassets in Resources */,
 				9677AFCE2CA3389700CABC67 /* Preview Assets.xcassets in Resources */,
 				9677AFFC2CA4645E00CABC67 /* OFL.txt in Resources */,
+				96AA5AE12CAF279D00F80BEE /* GoSound.mp3 in Resources */,
+				96AA5AE22CAF279D00F80BEE /* CountDown.mp3 in Resources */,
 				9677AFFD2CA4645E00CABC67 /* VarelaRound-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,6 +373,8 @@
 				9677AFD22CA3389700CABC67 /* Assets.xcassets in Resources */,
 				9677AFD32CA3389700CABC67 /* Preview Assets.xcassets in Resources */,
 				9677AFFE2CA4645E00CABC67 /* OFL.txt in Resources */,
+				96AA5ADF2CAF279D00F80BEE /* GoSound.mp3 in Resources */,
+				96AA5AE02CAF279D00F80BEE /* CountDown.mp3 in Resources */,
 				9677AFFF2CA4645E00CABC67 /* VarelaRound-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
