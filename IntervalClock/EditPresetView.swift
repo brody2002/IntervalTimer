@@ -9,24 +9,32 @@ import SwiftData
 
 struct EditPresetView: View {
     //Inits
-    @State var preset: Preset?
+    @State var preset: Preset
     @ObservedObject var PresetList: PresetListClass
     @State var setsNum: Int = 0
     @State var repsNum: TimeInterval = 0.00
     @State var restNum: TimeInterval = 0.00
+    @State var name : String
+    @Binding var path : [String]
+    
+//    @Binding var path: [String]
     
     
     @State var Clock = ClockClass()
     @State var isHolding: Bool = false
     @Environment(\.presentationMode) var presentationMode
     
-    init(preset: Preset, PresetList:  PresetListClass){
+    init(preset: Preset, PresetList:  PresetListClass, path: Binding<[String]>){
+        self._path = path
         self.setsNum = preset.sets
         self.repsNum = preset.reps
         self.restNum = preset.rest
         self.preset = preset
         self.PresetList = PresetList
+        self.name = preset.name
+        
     }
+    
     @State private var isIncrementing = false
     @State private var timer: Timer? = nil
     
@@ -55,7 +63,15 @@ struct EditPresetView: View {
                         
                     }
                 )
-            Text("Create Preset:")
+            Text("Name:")
+                .font(.custom(AppFonts.ValeraRound, size: 35))
+                .padding(.bottom, 200)
+                .padding(.trailing,170)
+            TextField("\(preset.name)", text: $preset.name)
+                .font(.custom(AppFonts.ValeraRound, size: 35))
+                .padding(.bottom, 200)
+                .padding(.leading,190)
+            Text("Edit Preset:")
                 .font(.custom(AppFonts.ValeraRound, size: 50))
                 .padding(.bottom, 400)
             
@@ -220,8 +236,8 @@ struct EditPresetView: View {
             
             RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
                 .stroke(Color.black, lineWidth: 6)
-                .frame(width: 350, height: 400)
-                .padding(.top, 200)
+                .frame(width: 350, height: 450)
+                .padding(.top, 150)
             
             
             
@@ -232,11 +248,17 @@ struct EditPresetView: View {
             EditPresetButton()
             .padding(.top, 520)
             .onTapGesture {
-                PresetList.addPreset(Preset(sets: setsNum, reps: repsNum, rest: restNum))
-                PresetList.objectWillChange.send()
-                PresetList.printPresets()
-                self.presentationMode.wrappedValue.dismiss()
-            }
+                   // Create an updated preset with the modified values
+                let updatedPreset = Preset(sets: setsNum, reps: repsNum, rest: restNum,name: preset.name, id: preset.id)
+                   
+                   // Call the editPreset function with the original preset and the updated one
+                   PresetList.editPreset(preset, inputPreset: updatedPreset)
+                   
+                   // Notify and dismiss the view
+                   PresetList.objectWillChange.send()
+                   PresetList.printPresets()
+                path.removeLast(min(2, path.count)) 
+               }
             
             
             
@@ -289,7 +311,7 @@ struct EditPresetView: View {
     let context = sharedModelContainer.mainContext
     let PresetList = PresetListClass(context: context) // Properly initialize PresetListClass with context
     let preset: Preset = Preset(sets: 0, reps: 0.0, rest: 0.0)
-    EditPresetView(preset: preset, PresetList: PresetList)
+    EditPresetView(preset: preset, PresetList: PresetList,path: .constant([]))
 }
 
 

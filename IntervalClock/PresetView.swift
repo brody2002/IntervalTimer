@@ -9,11 +9,13 @@ import SwiftData
 
 struct PresetView: View {
     //Inits
-    @State var preset: Preset?
+    @State var preset: Preset
     @ObservedObject var PresetList: PresetListClass
     @State var setsNum: Int = 0
     @State var repsNum: TimeInterval = 0.00
     @State var restNum: TimeInterval = 0.00
+    @State var name : String
+    var id: UUID
     
     
     @State var Clock = ClockClass()
@@ -26,6 +28,8 @@ struct PresetView: View {
         self.restNum = preset.rest
         self.preset = preset
         self.PresetList = PresetList
+        self.id = preset.id
+        self.name = preset.name
     }
     @State private var isIncrementing = false
     @State private var timer: Timer? = nil
@@ -55,9 +59,18 @@ struct PresetView: View {
                         
                     }
                 )
+            Text("Name:")
+                .font(.custom(AppFonts.ValeraRound, size: 35))
+                .padding(.bottom, 200)
+                .padding(.trailing,170)
+            TextField("\(preset.name)", text: $name)
+                .font(.custom(AppFonts.ValeraRound, size: 35))
+                .padding(.bottom, 200)
+                .padding(.leading,190)
+            
             Text("Create Preset:")
                 .font(.custom(AppFonts.ValeraRound, size: 50))
-                .padding(.bottom, 400)
+                .padding(.bottom, 490)
             
             VStack(alignment: .leading, spacing: 32) {
                 
@@ -220,8 +233,8 @@ struct PresetView: View {
             
             RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
                 .stroke(Color.black, lineWidth: 6)
-                .frame(width: 350, height: 400)
-                .padding(.top, 200)
+                .frame(width: 350, height: 450)
+                .padding(.top, 150)
             
             
             
@@ -232,9 +245,8 @@ struct PresetView: View {
             AddPresetButton()
             .padding(.top, 520)
             .onTapGesture {
-                PresetList.addPreset(Preset(sets: setsNum, reps: repsNum, rest: restNum))
+                PresetList.addPreset(Preset(sets: setsNum, reps: repsNum, rest: restNum,name: self.name, id: self.id))
                 PresetList.objectWillChange.send()
-                PresetList.printPresets()
                 self.presentationMode.wrappedValue.dismiss()
             }
             

@@ -14,7 +14,7 @@ struct EditPresetButton: View {
                 .stroke(Color.black, lineWidth: 6)
                 .frame(width: 350, height: 80)
             
-            Text("Edit Preset: ")
+            Text("Save Preset: ")
                 .font(.custom(AppFonts.ValeraRound, size: 45))
         }
     }

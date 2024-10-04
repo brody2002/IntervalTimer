@@ -11,6 +11,7 @@ struct ContentView: View {
     @State var setsNum: Int
     @State var repsNum: TimeInterval
     @State var restNum: TimeInterval
+    var id: UUID
     
     
     
@@ -31,6 +32,7 @@ struct ContentView: View {
     @State var timeLeft: TimeInterval = 0.00
     @State var isHoldingRunTimer : Bool = false
     @State var isHoldingBack : Bool = false
+    @Binding var path: [String]
     
     @State private var audioPlayer: AVAudioPlayer?
 
@@ -42,12 +44,13 @@ struct ContentView: View {
     
     var originalPreset: Preset  // Store the original preset
     
-    init(preset:Preset, pressetList: PresetListClass) {
+    init(preset:Preset, pressetList: PresetListClass, path: Binding<[String]> ) {
+        self._path = path
         self.setsNum = preset.sets
         self.repsNum = preset.reps
         self.restNum = preset.rest
         self.PresetList = pressetList
-        
+        self.id = preset.id
         self.originalPreset = Preset(sets: preset.sets, reps: preset.reps, rest: preset.rest)  // Initialize once and keep constant
         self._mutatingPreset = State(initialValue: originalPreset)  // Initialize mutating preset with original preset
     }
@@ -67,17 +70,27 @@ struct ContentView: View {
     }
     
     var body: some View { 
-        NavigationView{
+        
             ZStack {
                 (restMode ? AppColors.rest : AppColors.work)
                                 .ignoresSafeArea()
                                 .animation(.spring(response: 0.5, dampingFraction: 0.8), value: restMode)
-                NavigationLink(destination: EditPresetView(preset: Preset(sets: self.setsNum, reps: self.repsNum, rest: self.restNum), PresetList: PresetList)){
+                
+                
+    
+                
+                
+                NavigationLink(destination: {EditPresetView(preset: Preset(sets: self.setsNum, reps: self.repsNum, rest: self.restNum, id:self.id ), PresetList: PresetList, path: $path)}, label: {
                     Text("Edit")
                         .font(.custom(AppFonts.ValeraRound, size: 20))
-                        .padding(.bottom, 700)
-                        .padding(.leading, 270)
-                }
+                        .foregroundColor(.black)
+                        .background(Color.clear)
+                        
+                    
+                        
+                })
+                .padding(.bottom, 700)
+                .padding(.leading, 270)
                 
                     
                 
@@ -156,8 +169,7 @@ struct ContentView: View {
                     .padding(.trailing, 300)
                     .onTapGesture {
                         Clock.stopTimer()
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
+                        path.removeLast()                    }
                     .onLongPressGesture(minimumDuration: 3, pressing: { isPressing in
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.9)) {
                             self.isHoldingBack = isPressing
@@ -281,17 +293,12 @@ struct ContentView: View {
                                     print("Reps complete!")
                                     completed = true
                                     isFinished = true
-                                    
-                                    
+                          
                                 }
-                                
-                                
-                                
                                 
                             })
                         }
                         
-                        // After "GO!" has been shown for 1 second, revert back to the timer icon
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
                             showGo = false
                             self.showTimer = true
@@ -315,7 +322,7 @@ struct ContentView: View {
                         // Stop the timer when the view disappears
                         Clock.stopTimer()
                     }
-        }
+        
         
     }
 }
@@ -325,5 +332,5 @@ struct ContentView: View {
     let context = sharedModelContainer.mainContext
     let presetListClass = PresetListClass(context: context)
     
-    ContentView(preset: preset , pressetList: presetListClass)
+    ContentView(preset: preset, pressetList: presetListClass, path: .constant([]))
 }

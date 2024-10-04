@@ -12,6 +12,7 @@ struct PresetRow: View {
     var sets: Int
     var reps: TimeInterval
     var rest: TimeInterval
+    var name: String
     @Binding var navigateToEdit: Bool
     var Clock = ClockClass()
     @State var showOptions: Bool = false
@@ -23,9 +24,10 @@ struct PresetRow: View {
                 .stroke(Color.black, lineWidth: 6)
                 .frame(width: 350, height: 120)
             
-            Text("Sets: \(sets)")
+            
+            Text("Sets:  \(sets)")
                 .font(.custom(AppFonts.ValeraRound, size: 20))
-                .offset(x: -125, y: -30)
+                .offset(x: 48, y: -33)
                 .foregroundColor(.black)
             
             Text("Reps: \(Clock.timeIntervalToString(from: reps))")
@@ -33,9 +35,9 @@ struct PresetRow: View {
                 .offset(x: 85, y: 0)
                 .foregroundColor(.black)
             
-            Text("Rest: \(Clock.timeIntervalToString(from: rest))")
+            Text("Rest:  \(Clock.timeIntervalToString(from: rest))")
                 .font(.custom(AppFonts.ValeraRound, size: 20))
-                .offset(x: 88, y: 35)
+                .offset(x: 85.5, y: 35)
                 .foregroundColor(.black)
             
             Text("...")
@@ -47,6 +49,16 @@ struct PresetRow: View {
                         showOptions.toggle()
                     }
                 }
+                
+            
+            Text(preset.name.count > 10 ? "\(preset.name.prefix(10))..." : preset.name)
+                .font(.custom(AppFonts.ValeraRound, size: 25))
+                .frame(width: 200, alignment: .leading) // Set a fixed width and align to leading
+                .padding(.trailing, 118)
+                .padding(.bottom, 65)
+                .foregroundColor(.black)
+                .lineLimit(1) // Optional: restrict text to a single line
+                .fixedSize(horizontal: true, vertical: false)
             
             // Always keep the PresetOptionsView present and animate its position
             PresetOptionsView(preset: preset, PresetList: PresetList, navigateToEdit: $navigateToEdit)
@@ -66,5 +78,5 @@ struct PresetRow: View {
     let preset: Preset = Preset(sets: 2, reps: 2.0, rest: 2.0)
     
     
-    PresetRow(preset: preset, PresetList: presetListClass, sets: 3, reps: 10.0, rest: 33.0, navigateToEdit: .constant(false))
+    PresetRow(preset: preset, PresetList: presetListClass, sets: 3, reps: 10.0, rest: 33.0,name: preset.name, navigateToEdit: .constant(false))
 }

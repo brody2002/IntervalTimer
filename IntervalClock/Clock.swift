@@ -165,11 +165,11 @@ class PresetListClass: ObservableObject {
         }
     }
     func printPreset(_ preset: Preset) -> String{
-        return ("Preset - Sets: \(preset.sets), Reps: \(preset.reps), Rest: \(preset.rest)")
+        return ("Preset - Sets: \(preset.sets), Reps: \(preset.reps), Rest: \(preset.rest), Name: \(preset.name), ID: \(preset.id)")
     }
     func printPresets() {
         for preset in mainList {
-            print("Preset - Sets: \(preset.sets), Reps: \(preset.reps), Rest: \(preset.rest)")
+            print("Preset - Sets: \(preset.sets), Reps: \(preset.reps), Rest: \(preset.rest), Name: \(preset.name), ID: \(preset.id)")
         }
     }
     
@@ -179,7 +179,8 @@ class PresetListClass: ObservableObject {
         let fetchDescriptor = FetchDescriptor<Preset>()
         if let presets = try? context.fetch(fetchDescriptor) {
             mainList = presets
-            print("mainList is now: \(mainList)")
+            print("PResetList: ")
+            printPresets()
         }
     }
     
@@ -209,13 +210,15 @@ class PresetListClass: ObservableObject {
         // Re-fetch the original preset from the context
         let fetchDescriptor = FetchDescriptor<Preset>()
         if let fetchedPresets = try? context.fetch(fetchDescriptor),
-           let fetchedPreset = fetchedPresets.first(where: { $0 == preset }) {
+           let fetchedPreset = fetchedPresets.first(where: { $0.id == preset.id }) {
             print("we found the same id! YIPEEE")
             
             // Modify properties of the re-fetched preset
+            
             fetchedPreset.sets = inputPreset.sets
             fetchedPreset.reps = inputPreset.reps
             fetchedPreset.rest = inputPreset.rest
+            fetchedPreset.name = inputPreset.name
             
             // Save the changes to the persistent storage
             saveContext()
@@ -237,18 +240,22 @@ class PresetListClass: ObservableObject {
     }
 }
 
-
 @Model
 class Preset {
+    var name: String
     var sets: Int
     var reps: TimeInterval
     var rest: TimeInterval
+    var id : UUID
     
-    init(sets: Int, reps: TimeInterval, rest: TimeInterval) {
+    init(sets: Int, reps: TimeInterval, rest: TimeInterval,name: String? = nil, id: UUID? = nil) {
         self.sets = sets
         self.reps = reps
         self.rest = rest
+        if let name = name{ self.name = name } else { self.name = "Preset"}
+        if let id = id{self.id = id} else{ self.id = UUID()}
     }
 }
+
 
 
