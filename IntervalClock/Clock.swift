@@ -37,86 +37,98 @@ class ClockClass {
         return (hours * 3600) + (minutes * 60) + seconds
     }
 
-    func startClock(sets: Int, reps: TimeInterval, rest: TimeInterval, timeLeft: TimeInterval? = nil, inRestMode fromRest: Bool, onTick: @escaping (String) -> Void, onFinish: @escaping () -> Void) {
-        // Ensure timer state is properly reset before starting
-        stopTimer()
-        isRunning = true
-        isPaused = false
-        self.globalSetsLeft = sets
-        self.globalRepsLeft = reps
-        self.globalRestLeft = rest
-        var repsToUse: TimeInterval = 0.0
-        // Set the reps to use based on timeLeft or the default rep time
-        if fromRest{ repsToUse = reps }
-        else { repsToUse = timeLeft ?? reps }
-        
-        
-        
-        // Start timer logic
-        DispatchQueue.global(qos: .background).async {
-            while self.globalSetsLeft! > 0 && self.isRunning {
-                // Check if paused
-                if self.isPaused {
-                    Thread.sleep(forTimeInterval: 0.1)
-                    continue
-                }
+    func startClock(sets: Int, reps: TimeInterval, rest: TimeInterval, timeLeft: TimeInterval? = nil, inRestMode: Bool, onTick: @escaping (String) -> Void, onFinish: @escaping () -> Void) {
+            // Ensure timer state is properly reset before starting
+            stopTimer()
+            isRunning = true
+            isPaused = false
+            self.globalSetsLeft = sets
+            self.globalRepsLeft = reps
+            self.globalRestLeft = rest
+            
+            // Determine if resuming from rest or work period
+            if let remainingTime = timeLeft {
+                self.timeRemaining = remainingTime
+                self.inRest = inRestMode
+            } else {
+                self.timeRemaining = reps
+                self.inRest = false
+            }
+            
+            // Start timer logic
+            DispatchQueue.global(qos: .background).async {
+                while self.globalSetsLeft! > 0 && self.isRunning {
+                    // Check if paused
+                    
+                    if self.isPaused {
+                        Thread.sleep(forTimeInterval: 0.1)
+                        continue
+                    }
 
-                self.timeRemaining = repsToUse
-
-                // Rep countdown loop
-                while self.timeRemaining > 0 && self.isRunning && !self.isPaused {
-                    DispatchQueue.main.async {
+                    // **Handle Work and Rest Cycles**
+                    if self.inRest {
+                        // Handle rest period
+                        
+                        
+                        
+                        while self.timeRemaining > 0 && self.isRunning && !self.isPaused {
+                            DispatchQueue.main.async {
+                                self.updateRestMode?(true)
+                                onTick(self.timeIntervalToString(from: self.timeRemaining))
+                            }
+                            Thread.sleep(forTimeInterval: 1.0)
+                            self.timeRemaining -= 1
+                        }
+                        // Switch to work mode after rest
                         self.inRest = false
-                        self.updateRestMode?(self.inRest)
-                        onTick(self.timeIntervalToString(from: self.timeRemaining))
+                        self.timeRemaining = self.globalRepsLeft!
+                    } else {
+                        // Handle work period
+                        
+                        
+                        while self.timeRemaining > 0 && self.isRunning && !self.isPaused {
+                            DispatchQueue.main.async {
+                                self.updateRestMode?(false)
+                                onTick(self.timeIntervalToString(from: self.timeRemaining))
+                            }
+                            Thread.sleep(forTimeInterval: 1.0)
+                            self.timeRemaining -= 1
+                        }
+                       
+                        // Switch to rest mode after work
+                        
+                        if self.globalSetsLeft == 1{
+                            break
+                        }
+                        
+                        self.inRest = true
+                        self.timeRemaining = self.globalRestLeft!
                     }
-                    Thread.sleep(forTimeInterval: 1.0)
-                    self.timeRemaining -= 1
-                }
 
-                // Reset `repsToUse` to the default rep time after a complete rep iteration
-                repsToUse = self.globalRepsLeft!
-
-                // Only decrement sets count if not paused
-                if self.isRunning && !self.isPaused {
-                    self.globalSetsLeft! -= 1
-                    DispatchQueue.main.async {
-                        self.updateSetsNum?(self.globalSetsLeft!)
+                    // Only decrement sets count if not paused
+                    if self.isRunning && !self.isPaused && !self.inRest {
+                        self.globalSetsLeft! -= 1
+                        // If all sets are completed
+                        
+                        DispatchQueue.main.async {
+                            self.updateSetsNum?(self.globalSetsLeft!)
+                        }
                     }
+
+                   
                 }
 
                 // If all sets are completed
-                if self.globalSetsLeft! == 0 {
-                    break
-                }
-
-                // Rest period loop
-                self.timeRemaining = self.globalRestLeft!
-                while self.timeRemaining > 0 && self.isRunning && !self.isPaused {
-                    DispatchQueue.main.async {
-                        self.inRest = true
-                        self.updateRestMode?(self.inRest)
-                        onTick(self.timeIntervalToString(from: self.timeRemaining))
+                DispatchQueue.main.async {
+                    self.isRunning = false
+                    if self.isPaused {
+                        print("paused")
+                    } else {
+                        onFinish()
                     }
-                    Thread.sleep(forTimeInterval: 1.0)
-                    self.timeRemaining -= 1
-                }
-                
-            }
-
-            // If all sets are completed
-            DispatchQueue.main.async {
-                self.isRunning = false
-                if self.isPaused {
-                    print("paused")
-                } else {
-                    onFinish()
                 }
             }
         }
-    }
-
-
     // Stop the timer
     func stopTimer() {
         isRunning = false
@@ -139,9 +151,9 @@ class ClockClass {
     func resumeTimer(timeLeft: TimeInterval, sets: Int, inRest: Bool, onTick: @escaping (String) -> Void, onFinish: @escaping () -> Void) {
         isPaused = false
         isRunning = true
+        self.inRest = inRest
         self.globalSetsLeft = sets
-        // Resume from the saved time left
-
+        
         // Start the timer from the saved state
         startClock(sets: self.globalSetsLeft!, reps: self.globalRepsLeft!, rest: globalRestLeft!, timeLeft: timeLeft, inRestMode: inRest, onTick: onTick, onFinish: onFinish)
     }

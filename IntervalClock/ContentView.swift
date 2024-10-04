@@ -328,7 +328,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    let preset = Preset(sets: 2, reps: 2, rest: 1)
+    let preset = Preset(sets: 3, reps: 6, rest: 4)
     let context = sharedModelContainer.mainContext
     let presetListClass = PresetListClass(context: context)
     
