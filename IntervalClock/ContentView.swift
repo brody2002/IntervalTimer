@@ -32,6 +32,7 @@ struct ContentView: View {
     @State var timeLeft: TimeInterval = 0.00
     @State var isHoldingRunTimer : Bool = false
     @State var isHoldingBack : Bool = false
+    @State var allowedInteractPauseResume: Bool = true
     @Binding var path: [String]
     
     @State private var audioPlayer: AVAudioPlayer?
@@ -117,15 +118,19 @@ struct ContentView: View {
                     .padding(.top, 650)
                     .padding(.leading, 200)
                     .zIndex(20).onTapGesture {
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.6)){
+                        withAnimation(.spring(response: 0.6, dampingFraction: 1.2)){
                             self.pauseMode = true
                         }
                         returnTuple = Clock.pauseTimer()
                         print("returntuple: \(returnTuple)")
                         Clock.stopTimer()
+                        allowedInteractPauseResume = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                                allowedInteractPauseResume = true
+                        }
                     }
                     .opacity(self.pauseMode ? 0.0 : 1.0)
-                    .allowsHitTesting(!self.pauseMode && !isFinished)
+                    .allowsHitTesting(!self.pauseMode && !isFinished && allowedInteractPauseResume)
                 
                 
                 Image(systemName: "play.fill")
@@ -136,7 +141,7 @@ struct ContentView: View {
                     .padding(.leading, 215)
                     .zIndex(20)
                     .onTapGesture {
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)){
+                        withAnimation(.spring(response: 0.6, dampingFraction: 1.2)){
                             self.pauseMode = false
                         }
                         guard let timeLeft = returnTuple.0, let setsLeft = returnTuple.1 else {
@@ -153,10 +158,14 @@ struct ContentView: View {
                                 isFinished = true
                             }
                         })
+                        allowedInteractPauseResume = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                                allowedInteractPauseResume = true
+                        }
                         print("Resumed timer")
                     }
                     .opacity(!self.pauseMode ? 0.0 : 1.0)
-                    .allowsHitTesting(self.pauseMode)
+                    .allowsHitTesting(self.pauseMode && allowedInteractPauseResume)
                 
                 
                 //Back Button
@@ -231,30 +240,32 @@ struct ContentView: View {
                         setsNum = originalPreset.sets
                         completed = false
                         // Start countdown sequence
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        
                             playAudio("CountDown")
                             showTimer = false
                             show3 = true
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        // Triggers after 1 second has past
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                             playAudio("CountDown")
                             show3 = false
                             show2 = true
                         }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                             playAudio("CountDown")
                             show2 = false
                             show1 = true
                         }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                             playAudio("GoSound")
                             show1 = false
                             showGo = true
                             
                         }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0 ){
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0 ){
+                            showGo = false
                             self.showTimer = true
                             isFinished = false
+                            
                             
                             
                             
@@ -299,11 +310,6 @@ struct ContentView: View {
                             })
                         }
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                            showGo = false
-                            self.showTimer = true
-                            
-                        }
                     }
                     .onLongPressGesture(minimumDuration: 3, pressing: { isPressing in
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.9)) {

@@ -88,7 +88,7 @@ struct EditPresetView: View {
                             if !pressing { stopIncrementing() }
                         }, perform: {})
                         .onTapGesture {
-                            setsNum = max(0, setsNum - 1)
+                            setsNum = max(1, setsNum - 1)
                         }
                     Text("Sets:")
                         .font(.custom(AppFonts.ValeraRound, size: 20))
@@ -139,7 +139,7 @@ struct EditPresetView: View {
                             if !pressing { stopIncrementing() }
                         }, perform: {})
                         .onTapGesture {
-                            repsNum = max(0, repsNum - 1)
+                            repsNum = max(1, repsNum - 1)
                         }
                     
                     Text("Reps:")
@@ -278,13 +278,13 @@ struct EditPresetView: View {
             case "setsNum":
                 if input == "+" && setsNum < 99 {
                     setsNum += 1
-                } else if input == "-" && setsNum > 0 {
+                } else if input == "-" && setsNum > 1 {
                     setsNum -= 1
                 }
             case "repsNum":
                 if input == "+" && repsNum < 10800 {
                     repsNum += 1
-                } else if input == "-" && repsNum > 0 {
+                } else if input == "-" && repsNum > 1 {
                     repsNum -= 1
                 }
             case "restNum":
@@ -310,7 +310,7 @@ struct EditPresetView: View {
 #Preview {
     let context = sharedModelContainer.mainContext
     let PresetList = PresetListClass(context: context) // Properly initialize PresetListClass with context
-    let preset: Preset = Preset(sets: 0, reps: 0.0, rest: 0.0)
+    let preset: Preset = Preset(sets: 1, reps: 1.0, rest: 0.0)
     EditPresetView(preset: preset, PresetList: PresetList,path: .constant([]))
 }
 

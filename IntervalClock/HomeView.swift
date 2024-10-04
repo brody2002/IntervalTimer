@@ -87,7 +87,7 @@ struct HomeView: View {
             .navigationDestination(for: String.self) { value in
                 switch value {
                 case "MakePreset":
-                    return AnyView(PresetView(preset: Preset(sets: 0, reps: 0.0, rest: 0.0), PresetList: PresetList))
+                    return AnyView(PresetView(preset: Preset(sets: 1, reps: 1.0, rest: 0.0), PresetList: PresetList))
                     
                 case let contentViewId where contentViewId.starts(with: "ContentView-"):
                     // Extract the substring after "ContentView-"

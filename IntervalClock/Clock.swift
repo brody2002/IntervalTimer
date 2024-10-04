@@ -45,6 +45,7 @@ class ClockClass {
             self.globalSetsLeft = sets
             self.globalRepsLeft = reps
             self.globalRestLeft = rest
+            self.isRunning = true
             
             // Determine if resuming from rest or work period
             if let remainingTime = timeLeft {
@@ -61,12 +62,12 @@ class ClockClass {
                     // Check if paused
                     
                     if self.isPaused {
-                        Thread.sleep(forTimeInterval: 0.1)
+//                        Thread.sleep(forTimeInterval: 0.1)
                         continue
                     }
-
+                   
                     // **Handle Work and Rest Cycles**
-                    if self.inRest {
+                    if self.inRest && self.isRunning && !self.isPaused{
                         // Handle rest period
                         
                         
@@ -77,36 +78,40 @@ class ClockClass {
                                 onTick(self.timeIntervalToString(from: self.timeRemaining))
                             }
                             Thread.sleep(forTimeInterval: 1.0)
-                            self.timeRemaining -= 1
+                            if self.isRunning && !self.isPaused{
+                                self.timeRemaining -= 1
+                            }
+                            
                         }
                         // Switch to work mode after rest
                         self.inRest = false
                         self.timeRemaining = self.globalRepsLeft!
-                    } else {
+                    }
+                    
+                    if !self.inRest && self.isRunning && !self.isPaused{
                         // Handle work period
-                        
-                        
+                       
                         while self.timeRemaining > 0 && self.isRunning && !self.isPaused {
                             DispatchQueue.main.async {
                                 self.updateRestMode?(false)
                                 onTick(self.timeIntervalToString(from: self.timeRemaining))
                             }
                             Thread.sleep(forTimeInterval: 1.0)
-                            self.timeRemaining -= 1
+                            if self.isRunning && !self.isPaused{
+                                self.timeRemaining -= 1
+                            }
                         }
                        
                         // Switch to rest mode after work
                         
-                        if self.globalSetsLeft == 1{
-                            break
-                        }
+                        
                         
                         self.inRest = true
                         self.timeRemaining = self.globalRestLeft!
                     }
 
                     // Only decrement sets count if not paused
-                    if self.isRunning && !self.isPaused && !self.inRest {
+                    if self.isRunning && !self.isPaused && self.inRest {
                         self.globalSetsLeft! -= 1
                         // If all sets are completed
                         
@@ -131,7 +136,7 @@ class ClockClass {
         }
     // Stop the timer
     func stopTimer() {
-        isRunning = false
+        self.isRunning = false
         timer?.invalidate()
         timer = nil
         timeRemaining = 0
@@ -139,18 +144,18 @@ class ClockClass {
 
     // Pause the timer and return the current state
     func pauseTimer() -> (timeLeft: TimeInterval?, sets: Int?) {
-        isPaused = true
-        isRunning = false  // Stop running state
+        self.isPaused = true
+        self.isRunning = true  // Stop running state
         timer?.invalidate()
         timer = nil
         updatePauseMode?(isPaused)
-        return (timeLeft: timeRemaining, sets: globalSetsLeft)
+        return (timeLeft: self.timeRemaining, sets: globalSetsLeft)
     }
 
     // Resume the timer by calling `startClock`
     func resumeTimer(timeLeft: TimeInterval, sets: Int, inRest: Bool, onTick: @escaping (String) -> Void, onFinish: @escaping () -> Void) {
-        isPaused = false
-        isRunning = true
+        self.isPaused = false
+        self.isRunning = true
         self.inRest = inRest
         self.globalSetsLeft = sets
         
